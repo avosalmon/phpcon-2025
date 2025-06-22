@@ -2,12 +2,11 @@ import { Navigation } from "@/components/navigation";
 import { ProgressBar } from "@/components/progress-bar";
 import { useKeyboard } from "@/hooks/use-keyboard";
 import { cn } from "@/lib/utils";
-import type { Navigation as NavigationType } from "@/types";
 import { motion } from "motion/react";
 import React, { ComponentProps } from "react";
 
-export const SlideLayout: React.FC<ComponentProps<"div"> & { navigation: NavigationType }> = ({ children, className = "", navigation }) => {
-  useKeyboard(navigation);
+export const SlideLayout: React.FC<ComponentProps<"div"> & { currentSlide: string }> = ({ currentSlide, children, className = "" }) => {
+  useKeyboard(currentSlide);
 
   return (
     <motion.div
@@ -48,9 +47,9 @@ export const SlideLayout: React.FC<ComponentProps<"div"> & { navigation: Navigat
 
       <div className="relative z-10 w-full max-w-7xl">{children}</div>
 
-      <Navigation navigation={navigation} />
+      <Navigation currentSlide={currentSlide} />
 
-      <ProgressBar currentSlide={navigation.currentIndex} totalSlides={navigation.totalSlides} />
+      <ProgressBar currentSlide={currentSlide} />
     </motion.div>
   );
 };

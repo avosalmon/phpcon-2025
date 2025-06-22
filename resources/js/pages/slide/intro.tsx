@@ -1,6 +1,5 @@
 import { Laravel } from "@/components/icons/laravel";
 import { SlideLayout } from "@/layouts/slide-layout";
-import { Navigation } from "@/types";
 import { motion } from "motion/react";
 import { ReactElement } from "react";
 
@@ -232,6 +231,6 @@ const Intro = () => {
   );
 };
 
-Intro.layout = (page: ReactElement & { props: { navigation: Navigation } }) => <SlideLayout navigation={page.props.navigation}>{page}</SlideLayout>;
+Intro.layout = (page: ReactElement) => <SlideLayout currentSlide="intro">{page}</SlideLayout>;
 
 export default Intro;

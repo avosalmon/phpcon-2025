@@ -1,7 +1,6 @@
 import { Laravel } from "@/components/icons/laravel";
 import { SlideLayout } from "@/layouts/slide-layout";
 import { cn } from "@/lib/utils";
-import { Navigation } from "@/types";
 import { motion } from "motion/react";
 import { ReactElement } from "react";
 
@@ -166,8 +165,8 @@ const Title = () => {
   );
 };
 
-Title.layout = (page: ReactElement & { props: { navigation: Navigation } }) => (
-  <SlideLayout navigation={page.props.navigation} className="text-center">
+Title.layout = (page: ReactElement) => (
+  <SlideLayout currentSlide="title" className="text-center">
     {page}
   </SlideLayout>
 );

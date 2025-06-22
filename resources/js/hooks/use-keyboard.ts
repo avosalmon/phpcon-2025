@@ -1,22 +1,30 @@
-import { Navigation } from "@/types";
-import { router } from "@inertiajs/react";
+import { SharedData } from "@/types";
+import { router, usePage } from "@inertiajs/react";
 import { useEffect } from "react";
 
-export const useKeyboard = (navigation: Navigation) => {
+export const useKeyboard = (currentSlide: string) => {
+  const {
+    props: { slides },
+  } = usePage<SharedData>();
+
   useEffect(() => {
+    const currentIndex = slides.indexOf(currentSlide);
+    const previousSlide = slides[currentIndex - 1];
+    const nextSlide = slides[currentIndex + 1];
+
     const handleKeyPress = (event: KeyboardEvent) => {
       switch (event.key) {
         case "ArrowRight":
         case " ":
           event.preventDefault();
-          if (navigation.nextSlide) {
-            router.visit(`/slides/${navigation.nextSlide}`);
+          if (nextSlide) {
+            router.visit(`/slides/${nextSlide}`);
           }
           break;
         case "ArrowLeft":
           event.preventDefault();
-          if (navigation.previousSlide) {
-            router.visit(`/slides/${navigation.previousSlide}`);
+          if (previousSlide) {
+            router.visit(`/slides/${previousSlide}`);
           }
           break;
       }
@@ -24,5 +32,5 @@ export const useKeyboard = (navigation: Navigation) => {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [navigation]);
+  }, [currentSlide, slides]);
 };

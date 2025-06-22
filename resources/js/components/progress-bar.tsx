@@ -1,8 +1,16 @@
+import { SharedData } from "@/types";
+import { usePage } from "@inertiajs/react";
 import { motion } from "motion/react";
 import React from "react";
 
-export const ProgressBar: React.FC<{ currentSlide: number; totalSlides: number }> = ({ currentSlide, totalSlides }) => {
-  const progress = ((currentSlide + 1) / totalSlides) * 100;
+export const ProgressBar: React.FC<{ currentSlide: string }> = ({ currentSlide }) => {
+  const {
+    props: { slides },
+  } = usePage<SharedData>();
+
+  const currentIndex = slides.indexOf(currentSlide);
+  const totalSlides = slides.length;
+  const progress = ((currentIndex + 1) / totalSlides) * 100;
 
   return (
     <div className="fixed right-0 bottom-0 left-0 z-50">
@@ -15,7 +23,7 @@ export const ProgressBar: React.FC<{ currentSlide: number; totalSlides: number }
         />
       </div>
       <div className="absolute right-4 bottom-2 rounded bg-white/80 px-2 py-1 text-sm text-gray-500 backdrop-blur-sm">
-        {currentSlide + 1} / {totalSlides}
+        {currentIndex + 1} / {totalSlides}
       </div>
     </div>
   );

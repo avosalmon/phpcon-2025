@@ -28,6 +28,7 @@ export interface SharedData {
   auth: Auth;
   ziggy: Config & { location: string };
   sidebarOpen: boolean;
+  slides: string[];
   [key: string]: unknown;
 }
 
@@ -40,12 +41,4 @@ export interface User {
   created_at: string;
   updated_at: string;
   [key: string]: unknown; // This allows for additional properties...
-}
-
-export interface Navigation {
-  currentSlide: string;
-  currentIndex: number;
-  totalSlides: number;
-  previousSlide: string | null;
-  nextSlide: string | null;
 }

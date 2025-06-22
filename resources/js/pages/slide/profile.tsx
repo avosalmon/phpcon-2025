@@ -1,7 +1,6 @@
 import { Laravel } from "@/components/icons/laravel";
 import { X } from "@/components/icons/x";
 import { SlideLayout } from "@/layouts/slide-layout";
-import { Navigation } from "@/types";
 import { Users } from "lucide-react";
 import { motion } from "motion/react";
 import { ReactElement } from "react";
@@ -80,8 +79,8 @@ const Profile = () => {
   );
 };
 
-Profile.layout = (page: ReactElement & { props: { navigation: Navigation } }) => (
-  <SlideLayout navigation={page.props.navigation} className="text-center">
+Profile.layout = (page: ReactElement) => (
+  <SlideLayout currentSlide="profile" className="text-center">
     {page}
   </SlideLayout>
 );
