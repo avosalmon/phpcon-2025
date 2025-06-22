@@ -9,7 +9,7 @@ const LaravelLogo: React.FC<{ className?: string }> = ({ className = "w-32 h-32"
   </svg>
 );
 
-const Intro = ({ navigation }: { navigation: Navigation }) => {
+const Intro = () => {
   // Array of coordinates and sizes that simulate 3D space
   const generate3DPath = () => {
     const paths = [];

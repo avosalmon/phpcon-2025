@@ -9,7 +9,7 @@ const LaravelLogo: React.FC<{ className?: string }> = ({ className = "w-16 h-16"
   </svg>
 );
 
-const Title = ({ navigation }: { navigation: Navigation }) => {
+const Title = () => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
@@ -57,7 +57,7 @@ const Title = ({ navigation }: { navigation: Navigation }) => {
           whileHover={{ scale: 1.1, rotate: -5 }}
         >
           <div className="relative">
-            <img src="/inertia-logo-simple.png" alt="Inertia.js" className="h-20 w-20 drop-shadow-2xl md:h-24 md:w-24" />
+            <img src="/images/inertia-logo-square.png" alt="Inertia.js" className="h-20 w-20 drop-shadow-2xl md:h-24 md:w-24" />
             {/* Glow effect */}
             <div className="absolute inset-0 -z-10 scale-150 rounded-full bg-purple-500/30 blur-xl"></div>
           </div>

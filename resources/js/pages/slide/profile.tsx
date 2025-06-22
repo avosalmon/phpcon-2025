@@ -16,7 +16,7 @@ const LaravelLogo: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }
   </svg>
 );
 
-const Profile = ({ navigation }: { navigation: Navigation }) => {
+const Profile = () => {
   return (
     <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="space-y-8">
       <motion.div
@@ -34,7 +34,7 @@ const Profile = ({ navigation }: { navigation: Navigation }) => {
           >
             <div className="relative">
               <div className="h-48 w-48 overflow-hidden rounded-full border-4 border-white/50 shadow-2xl md:h-56 md:w-56">
-                <img src="/images/avatar.jpg" alt="profile" className="h-full w-full object-cover" />
+                <img src="/images/avatar.jpeg" alt="profile" className="h-full w-full object-cover" />
               </div>
               {/* Decorative ring */}
               <div className="absolute -inset-4 animate-pulse rounded-full bg-gradient-to-r from-white/20 to-purple-200/30"></div>
@@ -49,7 +49,7 @@ const Profile = ({ navigation }: { navigation: Navigation }) => {
           >
             <div className="space-y-2">
               <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">Ryuta Hamasaki</h2>
-              <p className="text-xl font-medium text-gray-600 md:text-2xl">濱崎 竜太s</p>
+              <p className="text-xl font-medium text-gray-600 md:text-2xl">濱崎 竜太</p>
             </div>
 
             <div className="space-y-3">
