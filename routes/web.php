@@ -13,5 +13,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+Route::prefix('slides')->group(function () {
+    Route::get('/', fn () => Inertia::render('slide/intro', ['navigation' => [
+        'currentSlide' => '/',
+        'currentIndex' => 0,
+        'totalSlides' => 3,
+        'previousSlide' => null,
+        'nextSlide' => 'title',
+    ]]));
+    Route::get('title', fn () => Inertia::render('slide/title', ['navigation' => [
+        'currentSlide' => 'title',
+        'currentIndex' => 1,
+        'totalSlides' => 3,
+        'previousSlide' => '/',
+        'nextSlide' => 'profile',
+    ]]));
+    Route::get('profile', fn () => Inertia::render('slide/profile', ['navigation' => [
+        'currentSlide' => 'profile',
+        'currentIndex' => 2,
+        'totalSlides' => 3,
+        'previousSlide' => 'title',
+        'nextSlide' => null,
+    ]]));
+});
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -41,3 +41,11 @@ export interface User {
   updated_at: string;
   [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Navigation {
+  currentSlide: string;
+  currentIndex: number;
+  totalSlides: number;
+  previousSlide: string | null;
+  nextSlide: string | null;
+}
