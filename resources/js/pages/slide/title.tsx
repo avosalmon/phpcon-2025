@@ -1,5 +1,6 @@
 import { Laravel } from "@/components/icons/laravel";
 import { SlideLayout } from "@/layouts/slide-layout";
+import { cn } from "@/lib/utils";
 import { Navigation } from "@/types";
 import { motion } from "motion/react";
 import { ReactElement } from "react";
@@ -127,11 +128,12 @@ const Title = () => {
               repeatDelay: 3,
             }}
           >
-            <div className={`h-2 w-2 rounded-full ${i % 3 === 0 ? "bg-red-400" : i % 3 === 1 ? "bg-purple-400" : "bg-blue-400"}`} />
+            <div className={cn("h-2 w-2 rounded-full", i % 3 === 0 ? "bg-red-400" : i % 3 === 1 ? "bg-purple-400" : "bg-blue-400")} />
             <div
-              className={`absolute inset-0 rounded-full blur-sm ${
-                i % 3 === 0 ? "bg-red-400/50" : i % 3 === 1 ? "bg-purple-400/50" : "bg-blue-400/50"
-              } scale-150`}
+              className={cn(
+                "absolute inset-0 scale-150 rounded-full blur-sm",
+                i % 3 === 0 ? "bg-red-400/50" : i % 3 === 1 ? "bg-purple-400/50" : "bg-blue-400/50",
+              )}
             />
           </motion.div>
         ))}
@@ -159,7 +161,9 @@ const Title = () => {
               ease: "easeInOut",
             }}
           >
-            <div className={`h-4 w-4 rounded-full ${i % 3 === 0 ? "bg-red-400/40" : i % 3 === 1 ? "bg-purple-400/40" : "bg-blue-400/40"} blur-sm`} />
+            <div
+              className={cn("h-4 w-4 rounded-full blur-sm", i % 3 === 0 ? "bg-red-400/40" : i % 3 === 1 ? "bg-purple-400/40" : "bg-blue-400/40")}
+            />
           </motion.div>
         ))}
       </div>

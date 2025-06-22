@@ -60,7 +60,7 @@ const Profile = () => {
 
             <div className="pt-4">
               <motion.a
-                href={`https://x.com/avosalmon`}
+                href="https://x.com/avosalmon"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex transform items-center space-x-3 rounded-full bg-gray-900 px-6 py-3 text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-gray-800 hover:shadow-xl"
