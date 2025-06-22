@@ -7,17 +7,12 @@ import { ReactElement } from "react";
 
 const Title = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.2, duration: 0.6 }}
-      className="space-y-16"
-    >
+    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="space-y-16">
       <motion.div
         className="mb-12 flex items-center justify-center space-x-12"
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
+        transition={{ delay: 0.2, duration: 0.6 }}
       >
         <motion.div
           className="relative"
