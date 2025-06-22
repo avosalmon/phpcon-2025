@@ -12,7 +12,7 @@ export const SlideLayout: React.FC<ComponentProps<"div"> & { navigation: Navigat
   return (
     <motion.div
       className={cn(
-        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-purple-600 via-purple-700 to-blue-900 px-8 py-12 md:px-16 lg:px-24",
+        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-purple-600 via-purple-700 to-blue-900 px-8 py-12 font-jp md:px-16 lg:px-24",
         className,
       )}
       initial={{ opacity: 0, y: 20 }}
