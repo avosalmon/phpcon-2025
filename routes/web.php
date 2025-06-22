@@ -5,12 +5,6 @@ use Inertia\Inertia;
 
 Route::get('/', fn () => redirect('/slides'))->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
-});
-
 Route::prefix('slides')->group(function () {
     Route::get('/', fn () => Inertia::render('slide/intro', ['navigation' => [
         'currentSlide' => '/',
@@ -33,6 +27,12 @@ Route::prefix('slides')->group(function () {
         'previousSlide' => 'title',
         'nextSlide' => null,
     ]]));
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', function () {
+        return Inertia::render('dashboard');
+    })->name('dashboard');
 });
 
 require __DIR__.'/settings.php';

@@ -1,20 +1,10 @@
+import { Laravel } from "@/components/icons/laravel";
+import { X } from "@/components/icons/x";
 import { SlideLayout } from "@/layouts/slide-layout";
 import { Navigation } from "@/types";
 import { Users } from "lucide-react";
 import { motion } from "motion/react";
-import React, { ReactElement } from "react";
-
-const XIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
-
-const LaravelLogo: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1888 1888" className={className} fill="#ff2d20">
-    <path d="M791.5 1714L215 1381.5c-8.5-5.5-15-8.5-15-19.5V357.5c0-8.158 5-13.5 9.5-16L502 173c9.5-5.5 17.5-5.5 26.5 0L819 340c11.5 6.5 12 15 12 22.5v622L1073.5 845V527c0-11 5-17.5 17-24.5L1380 336c7-4 12.5-4 19.5 0l295 170c9.5 5.5 10.5 12 10.5 21.5V858c0 10.5-2.5 16-13 22.5l-278.5 160v317c0 12.5-3 17.5-14 24L821 1714c-11 6-18.5 6-29.5 0zm-9-61.5v-279l-276-156c-9-5.5-15.5-9.5-15.5-23V543L248 403.5V1345zm583-307.5v-277L831 1373.5v279zm-25.528-318.167L1098 886.5 565 1194l241 137zM782.5 1012V403L540 543v609zm583-28V708l-243-140v277zm291-139V568l-243 140v276zm-267-179.5l242-139.5-242-139.5L1147 526zM757.635 361.004L515 221.5 273 361l242 140z" />
-  </svg>
-);
+import { ReactElement } from "react";
 
 const Profile = () => {
   return (
@@ -55,7 +45,7 @@ const Profile = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white shadow-md">
-                  <LaravelLogo className="h-6 w-6" />
+                  <Laravel className="size-6" />
                 </div>
                 <span className="text-lg text-gray-700">Software Engineer at Laravel</span>
               </div>
@@ -79,7 +69,7 @@ const Profile = () => {
                 transition={{ delay: 0.8, duration: 0.6 }}
                 whileHover={{ y: -2 }}
               >
-                <XIcon className="h-5 w-5" />
+                <X className="size-5" />
                 <span className="font-medium">avosalmon</span>
               </motion.a>
             </div>
