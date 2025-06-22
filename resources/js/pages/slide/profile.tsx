@@ -16,15 +16,10 @@ const LaravelLogo: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }
   </svg>
 );
 
-/**
- * 自己紹介スライドコンポーネント
- * プロフィール情報、写真、SNSリンクを表示
- */
 const Profile: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
   return (
     <SlideLayout navigation={navigation} className="text-center">
       <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="space-y-8">
-        {/* プロフィールカード */}
         <motion.div
           className="mx-auto max-w-5xl rounded-3xl border border-white/20 bg-white/95 p-8 shadow-xl backdrop-blur-sm md:p-12"
           initial={{ opacity: 0, y: 30 }}
@@ -32,7 +27,6 @@ const Profile: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* プロフィール写真 */}
             <motion.div
               className="flex justify-center"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -43,25 +37,22 @@ const Profile: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
                 <div className="h-48 w-48 overflow-hidden rounded-full border-4 border-white/50 shadow-2xl md:h-56 md:w-56">
                   <img src="/images/avatar.jpg" alt="profile" className="h-full w-full object-cover" />
                 </div>
-                {/* 装飾的なリング */}
+                {/* Decorative ring */}
                 <div className="absolute -inset-4 animate-pulse rounded-full bg-gradient-to-r from-white/20 to-purple-200/30"></div>
               </div>
             </motion.div>
 
-            {/* プロフィール情報 */}
             <motion.div
               className="space-y-6 text-left lg:pl-8 lg:text-left"
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
             >
-              {/* 名前 */}
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">Ryuta Hamasaki</h2>
                 <p className="text-xl font-medium text-gray-600 md:text-2xl">濱崎 竜太s</p>
               </div>
 
-              {/* 職業・所属 */}
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white shadow-md">
@@ -78,7 +69,6 @@ const Profile: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
                 </div>
               </div>
 
-              {/* SNS */}
               <div className="pt-4">
                 <motion.a
                   href={`https://x.com/avosalmon`}

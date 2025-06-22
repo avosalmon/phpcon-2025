@@ -9,10 +9,6 @@ const LaravelLogo: React.FC<{ className?: string }> = ({ className = "w-16 h-16"
   </svg>
 );
 
-/**
- * スピーカー情報付きタイトルスライドコンポーネント
- * プレゼンテーション導入に使用
- */
 const Title: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
   return (
     <SlideLayout navigation={navigation} className="text-center">
@@ -22,14 +18,12 @@ const Title: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
         transition={{ delay: 0.2, duration: 0.6 }}
         className="space-y-16"
       >
-        {/* ロゴセクション */}
         <motion.div
           className="mb-12 flex items-center justify-center space-x-12"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          {/* Laravel ロゴ */}
           <motion.div
             className="relative"
             initial={{ opacity: 0, x: -50, rotate: -10 }}
@@ -39,12 +33,12 @@ const Title: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           >
             <div className="relative">
               <LaravelLogo className="h-20 w-20 drop-shadow-2xl md:h-24 md:w-24" />
-              {/* グロー効果 */}
+              {/* Glow effect */}
               <div className="absolute inset-0 -z-10 scale-150 rounded-full bg-red-500/30 blur-xl"></div>
             </div>
           </motion.div>
 
-          {/* 接続線 */}
+          {/* Connection line */}
           <motion.div
             className="flex items-center space-x-2"
             initial={{ opacity: 0, scale: 0 }}
@@ -56,7 +50,6 @@ const Title: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
             <div className="h-0.5 w-8 bg-gradient-to-r from-purple-400 to-blue-400"></div>
           </motion.div>
 
-          {/* Inertia.js ロゴ */}
           <motion.div
             className="relative"
             initial={{ opacity: 0, x: 50, rotate: 10 }}
@@ -66,13 +59,12 @@ const Title: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           >
             <div className="relative">
               <img src="/inertia-logo-simple.png" alt="Inertia.js" className="h-20 w-20 drop-shadow-2xl md:h-24 md:w-24" />
-              {/* グロー効果 */}
+              {/* Glow effect */}
               <div className="absolute inset-0 -z-10 scale-150 rounded-full bg-purple-500/30 blur-xl"></div>
             </div>
           </motion.div>
         </motion.div>
 
-        {/* メインタイトル - 2行に分割 */}
         <div className="space-y-6">
           <h1 className="text-4xl leading-12 font-bold text-white md:text-6xl">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.8 }} className="mb-6">
@@ -88,7 +80,6 @@ const Title: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
             </motion.div>
           </h1>
 
-          {/* サブタイトル */}
           <motion.p
             className="mx-auto max-w-4xl text-xl leading-relaxed text-purple-100 md:text-2xl"
             initial={{ opacity: 0, y: 20 }}
@@ -99,7 +90,6 @@ const Title: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           </motion.p>
         </div>
 
-        {/* PHP Conference Japan 2025 - シンプルなカード */}
         <motion.div
           className="mx-auto max-w-2xl rounded-2xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-md"
           initial={{ opacity: 0, y: 30 }}
@@ -122,7 +112,7 @@ const Title: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           />
         </motion.div>
 
-        {/* 装飾的な要素 - より洗練されたデザイン */}
+        {/* Decorative elements - more refined design */}
         <motion.div
           className="flex justify-center space-x-6 opacity-60"
           initial={{ opacity: 0 }}
@@ -153,7 +143,7 @@ const Title: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           ))}
         </motion.div>
 
-        {/* 浮遊する技術アイコン */}
+        {/* Floating technology icons */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {[...Array(6)].map((_, i) => (
             <motion.div

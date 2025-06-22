@@ -10,7 +10,7 @@ const LaravelLogo: React.FC<{ className?: string }> = ({ className = "w-32 h-32"
 );
 
 const Intro: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
-  // 3D空間をシミュレートする座標とサイズの配列
+  // Array of coordinates and sizes that simulate 3D space
   const generate3DPath = () => {
     const paths = [];
     const maxX = 300;
@@ -20,17 +20,17 @@ const Intro: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
       const x = (Math.random() * 2 - 1) * maxX;
       const y = (Math.random() * 2 - 1) * maxY;
 
-      // Z軸をシミュレート（-1から1の範囲）
+      // Simulate Z-axis (range from -1 to 1)
       const z = Math.random() * 2 - 1;
 
-      // Z値に基づいてスケールを計算（遠いほど小さく、近いほど大きく）
-      // z = -1（最も遠い）: scale = 0.5
-      // z = 0（中間）: scale = 1.0
-      // z = 1（最も近い）: scale = 1.5
-      const scale = 0.5 + (z + 1) * 0.5; // 0.5 - 1.5の範囲
+      // Calculate scale based on Z value (farther = smaller, closer = larger)
+      // z = -1 (farthest): scale = 0.5
+      // z = 0 (middle): scale = 1.0
+      // z = 1 (closest): scale = 1.5
+      const scale = 0.5 + (z + 1) * 0.5; // Range of 0.5 - 1.5
 
-      // Z値に基づいて透明度も調整（遠いほど薄く）
-      const opacity = 0.6 + (z + 1) * 0.2; // 0.6 - 1.0の範囲
+      // Also adjust opacity based on Z value (farther = more transparent)
+      const opacity = 0.6 + (z + 1) * 0.2; // Range of 0.6 - 1.0
 
       paths.push({ x, y, scale, opacity });
     }
@@ -41,11 +41,8 @@ const Intro: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
 
   return (
     <SlideLayout navigation={navigation} className="bg-gradient-to-br from-purple-600 via-purple-700 to-blue-900">
-      {/* メインコンテナ */}
       <div className="relative flex h-full min-h-full w-full items-center justify-center">
-        {/* ロゴ移動エリア */}
         <div className="relative flex h-full w-full items-center justify-center">
-          {/* メインのLaravelロゴ - 3D的な動きとサイズ変化 */}
           <motion.div
             className="relative z-20"
             initial={{ scale: 0, rotate: 0 }}
@@ -90,11 +87,11 @@ const Intro: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           >
             <LaravelLogo className="h-32 w-32 drop-shadow-2xl md:h-40 md:w-40" />
 
-            {/* ロゴの周りのグロー効果 - サイズに連動 */}
+            {/* Glow effect around logo - linked to size */}
             <motion.div
               className="absolute inset-0 -z-10 rounded-full bg-red-500/30 blur-2xl"
               animate={{
-                scale: path3D.map((p) => p.scale * 1.8), // ロゴより少し大きめのグロー
+                scale: path3D.map((p) => p.scale * 1.8), // Glow slightly larger than logo
                 opacity: path3D.map((p) => p.opacity * 0.5),
               }}
               transition={{
@@ -114,7 +111,7 @@ const Intro: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
             />
           </motion.div>
 
-          {/* 軌跡を表現する小さなパーティクル - 遠近感付き */}
+          {/* Small particles representing trajectory - with perspective */}
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={`trail-${i}`}
@@ -162,7 +159,7 @@ const Intro: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           ))}
         </div>
 
-        {/* 背景の装飾的なパーティクル */}
+        {/* Decorative background particles */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {[...Array(25)].map((_, i) => (
             <motion.div
@@ -188,7 +185,7 @@ const Intro: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           ))}
         </div>
 
-        {/* 遠近感を強調する同心円リング */}
+        {/* Concentric rings to emphasize perspective */}
         <motion.div
           className="pointer-events-none absolute inset-0 flex items-center justify-center"
           animate={{
@@ -204,7 +201,7 @@ const Intro: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           <div className="h-96 w-96 rounded-full border-2 border-red-400/20"></div>
         </motion.div>
 
-        {/* 中間のリング */}
+        {/* Middle ring */}
         <motion.div
           className="pointer-events-none absolute inset-0 flex items-center justify-center"
           animate={{
@@ -221,7 +218,7 @@ const Intro: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
           <div className="h-[500px] w-[500px] rounded-full border border-red-400/15"></div>
         </motion.div>
 
-        {/* 外側のリング */}
+        {/* Outer ring */}
         <motion.div
           className="pointer-events-none absolute inset-0 flex items-center justify-center"
           animate={{
