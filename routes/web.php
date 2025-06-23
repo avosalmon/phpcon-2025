@@ -13,6 +13,7 @@ Route::prefix('slides')->group(function () {
     Route::get('phpxtky', fn () => Inertia::render('slide/phpxtky'));
     Route::get('agenda', fn () => Inertia::render('slide/agenda'));
     Route::get('inertia', fn () => Inertia::render('slide/inertia'));
+    Route::get('inertia-tagline', fn () => Inertia::render('slide/inertia-tagline'));
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
