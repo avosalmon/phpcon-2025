@@ -11,6 +11,7 @@ Route::prefix('slides')->group(function () {
     Route::get('profile', fn () => Inertia::render('slide/profile'));
     Route::get('nightwatch', fn () => Inertia::render('slide/nightwatch'));
     Route::get('phpxtky', fn () => Inertia::render('slide/phpxtky'));
+    Route::get('agenda', fn () => Inertia::render('slide/agenda'));
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
