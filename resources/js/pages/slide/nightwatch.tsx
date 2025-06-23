@@ -21,7 +21,7 @@ const Nightwatch = () => {
           </motion.div>
 
           {/* Decorative glow effect */}
-          <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-blue-500/20 blur-xl"></div>
+          <div className="absolute -inset-8 -z-10 rounded-3xl bg-gradient-to-br from-purple-300/60 via-pink-300/70 to-blue-300/60 blur-3xl"></div>
         </div>
       </motion.div>
 
