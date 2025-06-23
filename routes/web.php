@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', fn () => redirect('/slides'))->name('home');
+Route::get('/', fn () => redirect('/slides/intro'))->name('home');
 
 Route::prefix('slides')->group(function () {
     Route::get('intro', fn () => Inertia::render('slide/intro'));
     Route::get('title', fn () => Inertia::render('slide/title'));
     Route::get('profile', fn () => Inertia::render('slide/profile'));
+    Route::get('nightwatch', fn () => Inertia::render('slide/nightwatch'));
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
