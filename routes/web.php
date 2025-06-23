@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Http\Controllers\SpeakerController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,6 +17,7 @@ Route::prefix('slides')->group(function () {
     Route::get('agenda', fn () => Inertia::render('slide/agenda'));
     Route::get('inertia', fn () => Inertia::render('slide/inertia'));
     Route::get('inertia-tagline', fn () => Inertia::render('slide/inertia-tagline'));
+    Route::get('speakers', [SpeakerController::class, 'index']);
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
