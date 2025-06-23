@@ -13,7 +13,7 @@ const PHPxTKY = () => {
         <div className="absolute -inset-2 rounded-[2rem] bg-white/10 blur-lg"></div>
 
         {/* Main Card */}
-        <div className="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-white/20 bg-white p-24 shadow-2xl">
+        <div className="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-white/20 bg-white p-32 shadow-2xl">
           {/* Grey Dots Background Pattern */}
           <div className="absolute inset-0">
             {[...Array(120)].map((_, i) => (
