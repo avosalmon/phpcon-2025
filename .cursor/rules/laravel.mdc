@@ -1,0 +1,13 @@
+---
+description:
+globs: *.php
+alwaysApply: false
+---
+- This project uses Laravel v12 with Inertia.js v2. Make sure to follow the latest syntax of these framework/library versions and best practices.
+
+## Testing
+
+- For testing, this project uses Pest v3. Always write tests using Pest functionalities. Don't write tests with plain PHPUnit.
+- Use the `it` function, not the `test` function.
+- Do not use `$this` to call the TestCase methods. Use Pest's global functions. e.g. Use `post()` instead of `$this->post()`
+- Chain the response assertions instead of assigning the reponse to a variable.

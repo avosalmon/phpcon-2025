@@ -1,0 +1,20 @@
+---
+description:
+globs: *.tsx,*.ts,*.js,*.css
+alwaysApply: false
+---
+Follow the following rules for the frontend of this project.
+
+- This project uses React v19, Inertia.js v2, TypeScript, Tailwind CSS v4, motion (formerly known as framer-motion), and shadcn/ui. Make sure to follow the syntax of those framework and library versions, with the best practices.
+- Ensure to create modern-looking UI, following the UI/UX best practices.
+- When conditionally applying CSS classes, use the `cn` function, which is defined in [utils.ts](mdc:resources/js/lib/utils.ts).
+- See [app.css](mdc:resources/css/app.css) for all the CSS variables used in this project.
+- If you encounter ESLint errors or type errors, auto-fix them.
+
+## Frontend folder structure
+- resources/js/pages: Page components for Inertia.js
+- resources/js/components: Presentational components that are shared across the pages. They must not have any business logic, and must focus on presenting data.
+- resources/js/components/ui: shadcn/ui components scaffolded by shadcn/ui CLI. Those components can be tweaked if necessary.
+- resources/js/layouts: Inertia layout components
+- resources/js/hooks: React hooks
+- resources/js/lib: Helper functions
