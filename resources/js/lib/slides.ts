@@ -13,6 +13,7 @@ export const slides = [
   "speakers",
   "talk-proposals/create",
   "talk-proposals",
+  "dashboard",
 ];
 
 /**
