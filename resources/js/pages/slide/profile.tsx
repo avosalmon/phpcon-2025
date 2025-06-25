@@ -79,10 +79,6 @@ const Profile = () => {
   );
 };
 
-Profile.layout = (page: ReactElement) => (
-  <SlideLayout currentSlide="profile" className="text-center">
-    {page}
-  </SlideLayout>
-);
+Profile.layout = (page: ReactElement) => <SlideLayout className="text-center">{page}</SlideLayout>;
 
 export default Profile;

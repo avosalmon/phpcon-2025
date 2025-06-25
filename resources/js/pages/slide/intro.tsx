@@ -231,6 +231,6 @@ const Intro = () => {
   );
 };
 
-Intro.layout = (page: ReactElement) => <SlideLayout currentSlide="intro">{page}</SlideLayout>;
+Intro.layout = (page: ReactElement) => <SlideLayout>{page}</SlideLayout>;
 
 export default Intro;

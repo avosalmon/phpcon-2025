@@ -51,6 +51,6 @@ const Nightwatch = () => {
   );
 };
 
-Nightwatch.layout = (page: ReactElement) => <SlideLayout currentSlide="nightwatch">{page}</SlideLayout>;
+Nightwatch.layout = (page: ReactElement) => <SlideLayout>{page}</SlideLayout>;
 
 export default Nightwatch;

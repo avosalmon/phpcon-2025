@@ -114,6 +114,6 @@ const Create = () => {
   );
 };
 
-Create.layout = (page: ReactElement) => <SlideLayout currentSlide="talk-proposals/create">{page}</SlideLayout>;
+Create.layout = (page: ReactElement) => <SlideLayout>{page}</SlideLayout>;
 
 export default Create;

@@ -2,12 +2,12 @@ import { getNextSlide, getPreviousSlide } from "@/lib/slides";
 import { router } from "@inertiajs/react";
 import { useEffect } from "react";
 
-export const useKeyboard = (currentSlide: string) => {
+export const useKeyboard = () => {
   useEffect(() => {
-    const previousSlide = getPreviousSlide(currentSlide);
-    const nextSlide = getNextSlide(currentSlide);
-
     const handleKeyPress = (event: KeyboardEvent) => {
+      const previousSlide = getPreviousSlide();
+      const nextSlide = getNextSlide();
+
       switch (event.key) {
         case "ArrowRight":
         case " ":
@@ -27,5 +27,5 @@ export const useKeyboard = (currentSlide: string) => {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [currentSlide]);
+  }, []);
 };

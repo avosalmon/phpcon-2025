@@ -83,6 +83,6 @@ const Inertia = () => {
   );
 };
 
-Inertia.layout = (page: ReactElement) => <SlideLayout currentSlide="inertia">{page}</SlideLayout>;
+Inertia.layout = (page: ReactElement) => <SlideLayout>{page}</SlideLayout>;
 
 export default Inertia;

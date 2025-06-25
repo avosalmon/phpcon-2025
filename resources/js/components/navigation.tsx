@@ -3,9 +3,9 @@ import { Link } from "@inertiajs/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
 
-export const Navigation: React.FC<{ currentSlide: string }> = ({ currentSlide }) => {
-  const previousSlide = getPreviousSlide(currentSlide);
-  const nextSlide = getNextSlide(currentSlide);
+export const Navigation: React.FC = () => {
+  const previousSlide = getPreviousSlide();
+  const nextSlide = getNextSlide();
 
   return (
     <div className="fixed bottom-8 left-8 z-50 flex space-x-4">

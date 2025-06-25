@@ -125,6 +125,6 @@ const PHPxTKY = () => {
   );
 };
 
-PHPxTKY.layout = (page: ReactElement) => <SlideLayout currentSlide="phpxtky">{page}</SlideLayout>;
+PHPxTKY.layout = (page: ReactElement) => <SlideLayout>{page}</SlideLayout>;
 
 export default PHPxTKY;

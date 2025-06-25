@@ -165,10 +165,6 @@ const Title = () => {
   );
 };
 
-Title.layout = (page: ReactElement) => (
-  <SlideLayout currentSlide="title" className="text-center">
-    {page}
-  </SlideLayout>
-);
+Title.layout = (page: ReactElement) => <SlideLayout className="text-center">{page}</SlideLayout>;
 
 export default Title;

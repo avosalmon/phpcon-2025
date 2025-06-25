@@ -89,6 +89,6 @@ const Speakers = ({ speakers }: { speakers: Speaker[] }) => {
   );
 };
 
-Speakers.layout = (page: ReactElement) => <SlideLayout currentSlide="speakers">{page}</SlideLayout>;
+Speakers.layout = (page: ReactElement) => <SlideLayout>{page}</SlideLayout>;
 
 export default Speakers;

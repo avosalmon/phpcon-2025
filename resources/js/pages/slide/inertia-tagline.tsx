@@ -83,6 +83,6 @@ const InertiaTagline = () => {
   );
 };
 
-InertiaTagline.layout = (page: ReactElement) => <SlideLayout currentSlide="inertia-tagline">{page}</SlideLayout>;
+InertiaTagline.layout = (page: ReactElement) => <SlideLayout>{page}</SlideLayout>;
 
 export default InertiaTagline;

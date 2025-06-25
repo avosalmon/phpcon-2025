@@ -1,8 +1,9 @@
-import { slides } from "@/lib/slides";
+import { getCurrentSlideFromUrl, slides } from "@/lib/slides";
 import { motion } from "motion/react";
 import React from "react";
 
-export const ProgressBar: React.FC<{ currentSlide: string }> = ({ currentSlide }) => {
+export const ProgressBar: React.FC = () => {
+  const currentSlide = getCurrentSlideFromUrl();
   const currentIndex = slides.indexOf(currentSlide);
   const totalSlides = slides.length;
   const progress = ((currentIndex + 1) / totalSlides) * 100;

@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import React, { ComponentProps } from "react";
 
-export const SlideLayout: React.FC<ComponentProps<"div"> & { currentSlide: string }> = ({ currentSlide, children, className = "" }) => {
-  useKeyboard(currentSlide);
+export const SlideLayout: React.FC<ComponentProps<"div">> = ({ children, className = "" }) => {
+  useKeyboard();
 
   return (
     <motion.div
@@ -47,9 +47,9 @@ export const SlideLayout: React.FC<ComponentProps<"div"> & { currentSlide: strin
 
       <div className="relative z-10 w-full max-w-7xl">{children}</div>
 
-      <Navigation currentSlide={currentSlide} />
+      <Navigation />
 
-      <ProgressBar currentSlide={currentSlide} />
+      <ProgressBar />
     </motion.div>
   );
 };

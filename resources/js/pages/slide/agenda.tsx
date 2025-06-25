@@ -60,6 +60,6 @@ const Agenda = () => {
   );
 };
 
-Agenda.layout = (page: ReactElement) => <SlideLayout currentSlide="agenda">{page}</SlideLayout>;
+Agenda.layout = (page: ReactElement) => <SlideLayout>{page}</SlideLayout>;
 
 export default Agenda;
