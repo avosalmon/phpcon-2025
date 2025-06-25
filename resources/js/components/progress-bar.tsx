@@ -1,13 +1,8 @@
-import { SharedData } from "@/types";
-import { usePage } from "@inertiajs/react";
+import { slides } from "@/lib/slides";
 import { motion } from "motion/react";
 import React from "react";
 
 export const ProgressBar: React.FC<{ currentSlide: string }> = ({ currentSlide }) => {
-  const {
-    props: { slides },
-  } = usePage<SharedData>();
-
   const currentIndex = slides.indexOf(currentSlide);
   const totalSlides = slides.length;
   const progress = ((currentIndex + 1) / totalSlides) * 100;

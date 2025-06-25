@@ -1,16 +1,11 @@
-import { SharedData } from "@/types";
-import { router, usePage } from "@inertiajs/react";
+import { getNextSlide, getPreviousSlide } from "@/lib/slides";
+import { router } from "@inertiajs/react";
 import { useEffect } from "react";
 
 export const useKeyboard = (currentSlide: string) => {
-  const {
-    props: { slides },
-  } = usePage<SharedData>();
-
   useEffect(() => {
-    const currentIndex = slides.indexOf(currentSlide);
-    const previousSlide = slides[currentIndex - 1];
-    const nextSlide = slides[currentIndex + 1];
+    const previousSlide = getPreviousSlide(currentSlide);
+    const nextSlide = getNextSlide(currentSlide);
 
     const handleKeyPress = (event: KeyboardEvent) => {
       switch (event.key) {
@@ -32,5 +27,5 @@ export const useKeyboard = (currentSlide: string) => {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [currentSlide, slides]);
+  }, [currentSlide]);
 };

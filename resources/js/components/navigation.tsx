@@ -1,16 +1,11 @@
-import type { SharedData } from "@/types";
-import { Link, usePage } from "@inertiajs/react";
+import { getNextSlide, getPreviousSlide } from "@/lib/slides";
+import { Link } from "@inertiajs/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
 
 export const Navigation: React.FC<{ currentSlide: string }> = ({ currentSlide }) => {
-  const {
-    props: { slides },
-  } = usePage<SharedData>();
-
-  const currentIndex = slides.indexOf(currentSlide);
-  const previousSlide = slides[currentIndex - 1];
-  const nextSlide = slides[currentIndex + 1];
+  const previousSlide = getPreviousSlide(currentSlide);
+  const nextSlide = getNextSlide(currentSlide);
 
   return (
     <div className="fixed bottom-8 left-8 z-50 flex space-x-4">
