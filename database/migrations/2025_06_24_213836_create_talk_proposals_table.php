@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('talk_title');
             $table->text('talk_description');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

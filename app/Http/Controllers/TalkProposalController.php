@@ -14,7 +14,7 @@ class TalkProposalController extends Controller
 {
     public function index(): Response
     {
-        $proposals = TalkProposal::all();
+        $proposals = TalkProposal::latest()->get();
 
         return Inertia::render('slide/talk-proposal/index', [
             'proposals' => $proposals,
@@ -30,13 +30,13 @@ class TalkProposalController extends Controller
     {
         TalkProposal::create($request->validated());
 
-        return redirect()->to('/slide/talk-proposals');
+        return redirect()->to('/slides/talk-proposals');
     }
 
-    public function destroy(TalkProposal $talkProposal): RedirectResponse
+    public function destroy(TalkProposal $proposal): RedirectResponse
     {
-        $talkProposal->delete();
+        $proposal->delete();
 
-        return redirect()->to('/slide/talk-proposals');
+        return redirect()->to('/slides/talk-proposals');
     }
 }

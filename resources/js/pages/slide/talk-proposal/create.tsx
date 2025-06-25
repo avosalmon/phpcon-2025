@@ -33,7 +33,7 @@ const Create = () => {
         <div className="mb-8 flex items-start justify-between">
           <div>
             <h3 className="text-3xl font-bold text-gray-900">PHP Conference Japan 2025</h3>
-            <p className="mt-2 text-gray-600">トーク応募フォーム</p>
+            <p className="mt-2 text-gray-600">トークプロポーザル</p>
           </div>
           <div className="flex items-center space-x-2 text-sm text-gray-500">
             <Calendar className="h-4 w-4" />
@@ -96,10 +96,10 @@ const Create = () => {
           <div className="pt-6">
             <button
               type="submit"
-              disabled={processing || Object.keys(errors).length > 0}
+              disabled={processing}
               className={cn(
                 "flex w-full items-center justify-center space-x-2 rounded-lg px-6 py-4 font-medium transition-all duration-200",
-                processing || Object.keys(errors).length > 0
+                processing
                   ? "cursor-not-allowed bg-gray-300 text-gray-500"
                   : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 hover:shadow-lg",
               )}

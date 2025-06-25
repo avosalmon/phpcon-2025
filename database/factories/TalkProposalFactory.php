@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\TalkProposalStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class TalkProposalFactory extends Factory
             'email' => $this->faker->email,
             'talk_title' => $this->faker->sentence,
             'talk_description' => $this->faker->paragraph,
+            'status' => $this->faker->randomElement(TalkProposalStatus::cases()),
         ];
     }
 }

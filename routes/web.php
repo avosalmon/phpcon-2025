@@ -24,6 +24,7 @@ Route::prefix('slides')->group(function () {
         Route::get('/', [TalkProposalController::class, 'index']);
         Route::post('/', [TalkProposalController::class, 'store']);
         Route::get('/create', [TalkProposalController::class, 'create']);
+        Route::delete('/{proposal}', [TalkProposalController::class, 'destroy']);
     });
 });
 
