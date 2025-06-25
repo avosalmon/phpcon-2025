@@ -172,14 +172,14 @@ const Dashboard = () => {
           </div>
           <div>
             <span className="text-xl font-semibold text-gray-900">Conference Dashboard</span>
-            <p className="text-sm text-gray-600">PHP Conference Japan 2025</p>
+            <p className="text-sm text-gray-600">Laravel Live Japan 2026</p>
           </div>
         </div>
 
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2 rounded-lg border bg-white px-3 py-2 shadow-sm">
             <Calendar className="h-4 w-4 text-gray-500" />
-            <span className="text-sm text-gray-700">2025年6月28日</span>
+            <span className="text-sm text-gray-700">2026年5月XX日</span>
           </div>
         </div>
       </motion.div>
