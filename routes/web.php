@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\SpeakerController;
+use App\Http\Controllers\TalkProposalController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,6 +19,12 @@ Route::prefix('slides')->group(function () {
     Route::get('inertia', fn () => Inertia::render('slide/inertia'));
     Route::get('inertia-tagline', fn () => Inertia::render('slide/inertia-tagline'));
     Route::get('speakers', [SpeakerController::class, 'index']);
+
+    Route::prefix('talk-proposals')->group(function () {
+        Route::get('/', [TalkProposalController::class, 'index']);
+        Route::post('/', [TalkProposalController::class, 'store']);
+        Route::get('/create', [TalkProposalController::class, 'create']);
+    });
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
