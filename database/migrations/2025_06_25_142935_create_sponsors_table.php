@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('talk_proposals', function (Blueprint $table) {
+        Schema::create('sponsors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
-            $table->string('talk_title');
-            $table->text('talk_description');
-            $table->string('category')->nullable();
-            $table->string('status')->default('pending');
+            $table->string('tier');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('talk_proposals');
+        Schema::dropIfExists('sponsors');
     }
 };

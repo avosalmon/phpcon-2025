@@ -29,5 +29,5 @@
       "import_symbols": true
     }
   },
-  "exclude": ["bootstrap", "config", "database", "public"]
+  "exclude": ["bootstrap", "config", "public"]
 }

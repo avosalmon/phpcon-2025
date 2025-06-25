@@ -23,6 +23,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SpeakerSeeder::class,
             TalkProposalSeeder::class,
+            AttendeeSeeder::class,
+            TicketSeeder::class,
+            SponsorSeeder::class,
+            WebsiteTrafficSeeder::class,
         ]);
     }
 }

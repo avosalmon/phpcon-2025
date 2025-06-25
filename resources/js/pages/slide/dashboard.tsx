@@ -5,109 +5,92 @@ import { motion } from "motion/react";
 import { ReactNode } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Pie, PieChart, XAxis, YAxis } from "recharts";
 
-const Dashboard = () => {
-  const metrics = [
-    {
-      title: "チケット売上",
-      value: "¥12,847,500",
-      change: "+18.5%",
-      trend: "up",
-      icon: DollarSign,
-      color: "from-green-500 to-emerald-600",
-      subtitle: "目標の 85% 達成",
-    },
-    {
-      title: "参加者数",
-      value: "1,247",
-      change: "+12.3%",
-      trend: "up",
-      icon: Users,
-      color: "from-blue-500 to-blue-600",
-      subtitle: "定員 1,500 名",
-    },
-    {
-      title: "トーク応募",
-      value: "89",
-      change: "+5.2%",
-      trend: "up",
-      icon: Mic,
-      color: "from-purple-500 to-purple-600",
-      subtitle: "採択予定 24 件",
-    },
-    {
-      title: "スポンサー",
-      value: "18",
-      change: "+2.1%",
-      trend: "up",
-      icon: Building,
-      color: "from-orange-500 to-orange-600",
-      subtitle: "目標 20 社",
-    },
-  ];
+interface DashboardProps {
+  metrics: {
+    title: string;
+    value: string;
+    change: string;
+    trend: string;
+    subtitle: string;
+  }[];
+  attendeesByCountry: {
+    country: string;
+    attendees: number;
+    fill: string;
+  }[];
+  ticketSalesData: {
+    month: string;
+    sales: number;
+    early: number;
+    regular: number;
+  }[];
+  talkCategoriesData: {
+    category: string;
+    submissions: number;
+    fill: string;
+  }[];
+  trafficData: {
+    time: string;
+    visitors: number;
+  }[];
+}
 
-  const attendeesByCountry = [
-    { country: "japan", attendees: 892, fill: "var(--color-japan)" },
-    { country: "usa", attendees: 156, fill: "var(--color-usa)" },
-    { country: "india", attendees: 78, fill: "var(--color-india)" },
-    { country: "germany", attendees: 45, fill: "var(--color-germany)" },
-    { country: "uk", attendees: 32, fill: "var(--color-uk)" },
-    { country: "canada", attendees: 24, fill: "var(--color-canada)" },
-    { country: "other", attendees: 20, fill: "var(--color-other)" },
-  ];
+const Dashboard = ({ metrics, attendeesByCountry, ticketSalesData, talkCategoriesData, trafficData }: DashboardProps) => {
+  const getMetricIcon = (title: string) => {
+    switch (title) {
+      case "チケット売上":
+        return DollarSign;
+      case "参加者数":
+        return Users;
+      case "トーク応募":
+        return Mic;
+      case "スポンサー":
+        return Building;
+      default:
+        return DollarSign;
+    }
+  };
 
-  const ticketSalesData = [
-    { month: "8月", sales: 2_400_000, early: 280, regular: 40 },
-    { month: "9月", sales: 3_200_000, early: 350, regular: 75 },
-    { month: "10月", sales: 4_100_000, early: 380, regular: 167 },
-    { month: "11月", sales: 5_800_000, early: 420, regular: 353 },
-    { month: "12月", sales: 7_200_000, early: 450, regular: 510 },
-    { month: "1月", sales: 9_100_000, early: 480, regular: 641 },
-    { month: "2月", sales: 10_800_000, early: 500, regular: 747 },
-  ];
-
-  const talkCategoriesData = [
-    { category: "laravel", submissions: 28, fill: "var(--color-laravel)" },
-    { category: "frontend", submissions: 22, fill: "var(--color-frontend)" },
-    { category: "devops", submissions: 15, fill: "var(--color-devops)" },
-    { category: "ai", submissions: 12, fill: "var(--color-ai)" },
-    { category: "other", submissions: 12, fill: "var(--color-other)" },
-  ];
-
-  const trafficData = [
-    { time: "00:00", visitors: 45 },
-    { time: "04:00", visitors: 23 },
-    { time: "08:00", visitors: 156 },
-    { time: "12:00", visitors: 289 },
-    { time: "16:00", visitors: 234 },
-    { time: "20:00", visitors: 178 },
-    { time: "24:00", visitors: 89 },
-  ];
+  const getMetricColor = (title: string) => {
+    switch (title) {
+      case "チケット売上":
+        return "from-green-500 to-emerald-600";
+      case "参加者数":
+        return "from-blue-500 to-blue-600";
+      case "トーク応募":
+        return "from-purple-500 to-purple-600";
+      case "スポンサー":
+        return "from-orange-500 to-orange-600";
+      default:
+        return "from-gray-500 to-gray-600";
+    }
+  };
 
   const attendeeChartConfig = {
     attendees: {
       label: "参加者数",
     },
-    japan: {
+    jp: {
       label: "日本",
       color: "#ef4444",
     },
-    usa: {
+    us: {
       label: "アメリカ",
       color: "var(--chart-2)",
     },
-    india: {
+    in: {
       label: "インド",
       color: "var(--chart-3)",
     },
-    germany: {
+    de: {
       label: "ドイツ",
       color: "var(--chart-4)",
     },
-    uk: {
+    gb: {
       label: "イギリス",
       color: "var(--chart-5)",
     },
-    canada: {
+    ca: {
       label: "カナダ",
       color: "#3b82f6",
     },
@@ -158,6 +141,8 @@ const Dashboard = () => {
     },
   } satisfies ChartConfig;
 
+  const totalAttendees = attendeesByCountry.reduce((sum, country) => sum + country.attendees, 0);
+
   return (
     <div className="space-y-6 rounded-2xl border border-white/20 bg-white/95 p-8 shadow-lg backdrop-blur-sm">
       <motion.div
@@ -190,29 +175,34 @@ const Dashboard = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6 }}
       >
-        {metrics.map((metric, index) => (
-          <motion.div
-            key={metric.title}
-            className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
-            whileHover={{ y: -5 }}
-          >
-            <div className="mb-4 flex items-center justify-between">
-              <div className={`h-12 w-12 bg-gradient-to-r ${metric.color} flex items-center justify-center rounded-lg`}>
-                <metric.icon className="h-6 w-6 text-white" />
+        {metrics.map((metric, index) => {
+          const IconComponent = getMetricIcon(metric.title);
+          const colorClass = getMetricColor(metric.title);
+
+          return (
+            <motion.div
+              key={metric.title}
+              className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
+              whileHover={{ y: -5 }}
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className={`h-12 w-12 bg-gradient-to-r ${colorClass} flex items-center justify-center rounded-lg`}>
+                  <IconComponent className="h-6 w-6 text-white" />
+                </div>
+                <div className={`flex items-center space-x-1 text-sm font-medium ${metric.trend === "up" ? "text-green-600" : "text-red-600"}`}>
+                  {metric.trend === "up" ? <ArrowUpRight className="h-4 w-4" /> : <ArrowDownRight className="h-4 w-4" />}
+                  <span>{metric.change}</span>
+                </div>
               </div>
-              <div className={`flex items-center space-x-1 text-sm font-medium ${metric.trend === "up" ? "text-green-600" : "text-red-600"}`}>
-                {metric.trend === "up" ? <ArrowUpRight className="h-4 w-4" /> : <ArrowDownRight className="h-4 w-4" />}
-                <span>{metric.change}</span>
-              </div>
-            </div>
-            <h3 className="mb-1 text-2xl font-bold text-gray-900">{metric.value}</h3>
-            <p className="mb-1 text-sm text-gray-600">{metric.title}</p>
-            <p className="text-xs text-gray-500">{metric.subtitle}</p>
-          </motion.div>
-        ))}
+              <h3 className="mb-1 text-2xl font-bold text-gray-900">{metric.value}</h3>
+              <p className="mb-1 text-sm text-gray-600">{metric.title}</p>
+              <p className="text-xs text-gray-500">{metric.subtitle}</p>
+            </motion.div>
+          );
+        })}
       </motion.div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -283,9 +273,9 @@ const Dashboard = () => {
             >
               <div className="flex items-center justify-between">
                 <span className="font-semibold text-gray-900">総参加者数</span>
-                <span className="text-xl font-bold text-gray-900">1,247名</span>
+                <span className="text-xl font-bold text-gray-900">{totalAttendees}名</span>
               </div>
-              <p className="mt-1 text-xs text-gray-500">7カ国からの参加</p>
+              <p className="mt-1 text-xs text-gray-500">{attendeesByCountry.length}カ国からの参加</p>
             </motion.div>
           </div>
         </motion.div>

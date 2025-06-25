@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('talk_proposals', function (Blueprint $table) {
+        Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('talk_title');
-            $table->text('talk_description');
-            $table->string('category')->nullable();
-            $table->string('status')->default('pending');
+            $table->foreignId('attendee_id')->constrained()->onDelete('cascade');
+            $table->string('type');
+            $table->decimal('price', 10, 2);
+            $table->timestamp('purchased_at');
             $table->timestamps();
+
+            $table->unique('attendee_id');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('talk_proposals');
+        Schema::dropIfExists('tickets');
     }
 };

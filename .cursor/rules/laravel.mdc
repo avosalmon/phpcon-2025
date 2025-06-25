@@ -3,7 +3,10 @@ description:
 globs: *.php
 alwaysApply: false
 ---
-- This project uses Laravel v12 with Inertia.js v2. Make sure to follow the latest syntax of these framework/library versions and best practices.
+- This project uses Laravel v12, Inertia.js v2, and SQLite. Make sure to follow the latest syntax of these framework/library versions and best practices.
+
+## Local environment
+You can run the app locally by running `composer dev`. It will start the PHP development server and Vite server.
 
 ## Testing
 
