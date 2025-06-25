@@ -4,13 +4,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SlideLayout } from "@/layouts/slide-layout";
 import { cn } from "@/lib/utils";
-import { useForm } from "@inertiajs/react";
+import { useForm } from "laravel-precognition-react-inertia";
 import { Calendar, FileText, Send, User } from "lucide-react";
 import { motion } from "motion/react";
 import { ReactElement } from "react";
 
 const Create = () => {
-  const { data, setData, post, errors, processing } = useForm({
+  const { data, setData, submit, validate, errors, processing } = useForm("post", "/slides/talk-proposals", {
     name: "",
     email: "",
     talk_title: "",
@@ -19,7 +19,7 @@ const Create = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    post("/slides/talk-proposals");
+    submit();
   };
 
   return (
@@ -51,13 +51,25 @@ const Create = () => {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div>
                 <Label className="mb-2 block">氏名 *</Label>
-                <Input type="text" value={data.name} onChange={(e) => setData("name", e.target.value)} placeholder="Taylor Otwell" />
+                <Input
+                  type="text"
+                  value={data.name}
+                  onChange={(e) => setData("name", e.target.value)}
+                  onBlur={() => validate("name")}
+                  placeholder="Taylor Otwell"
+                />
                 <InputError message={errors.name} />
               </div>
 
               <div>
                 <Label className="mb-2 block">メールアドレス *</Label>
-                <Input type="email" value={data.email} onChange={(e) => setData("email", e.target.value)} placeholder="taylor@laravel.com" />
+                <Input
+                  type="email"
+                  value={data.email}
+                  onChange={(e) => setData("email", e.target.value)}
+                  onBlur={() => validate("email")}
+                  placeholder="taylor@laravel.com"
+                />
                 <InputError message={errors.email} />
               </div>
             </div>
@@ -75,6 +87,7 @@ const Create = () => {
                 type="text"
                 value={data.talk_title}
                 onChange={(e) => setData("talk_title", e.target.value)}
+                onBlur={() => validate("talk_title")}
                 placeholder="Laravel + Inertia.jsで始めるモダンフルスタック開発"
               />
               <InputError message={errors.talk_title} />
@@ -85,6 +98,7 @@ const Create = () => {
               <Textarea
                 value={data.talk_description}
                 onChange={(e) => setData("talk_description", e.target.value)}
+                onBlur={() => validate("talk_description")}
                 className="resize-none"
                 rows={8}
                 placeholder="このトークでは、Laravel + Inertia.js + Reactを使ったモダンなフルスタック開発について説明します。従来のSPAの複雑さを排除しながら、リッチなユーザー体験を提供する方法を実例とともに紹介します。"

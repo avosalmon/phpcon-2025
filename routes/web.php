@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\TalkProposalController;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,10 +21,11 @@ Route::prefix('slides')->group(function () {
     Route::get('inertia', fn () => Inertia::render('slide/inertia'));
     Route::get('inertia-tagline', fn () => Inertia::render('slide/inertia-tagline'));
     Route::get('speakers', [SpeakerController::class, 'index']);
+    Route::get('dashboard', DashboardController::class);
 
     Route::prefix('talk-proposals')->group(function () {
         Route::get('/', [TalkProposalController::class, 'index']);
-        Route::post('/', [TalkProposalController::class, 'store']);
+        Route::post('/', [TalkProposalController::class, 'store'])->middleware(HandlePrecognitiveRequests::class);
         Route::get('/create', [TalkProposalController::class, 'create']);
         Route::delete('/{proposal}', [TalkProposalController::class, 'destroy']);
     });
