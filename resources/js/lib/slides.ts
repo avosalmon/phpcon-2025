@@ -24,12 +24,12 @@ export function getCurrentSlideFromUrl(): string {
   return match ? match[1] : "";
 }
 
-export function getNextSlide() {
+export function getNextSlide(): string {
   const currentSlide = getCurrentSlideFromUrl();
   return slides[slides.indexOf(currentSlide) + 1];
 }
 
-export function getPreviousSlide() {
+export function getPreviousSlide(): string {
   const slide = getCurrentSlideFromUrl();
   return slides[slides.indexOf(slide) - 1];
 }

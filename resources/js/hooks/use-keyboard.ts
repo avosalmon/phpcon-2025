@@ -5,6 +5,19 @@ import { useEffect } from "react";
 export const useKeyboard = () => {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
+      const activeElement = document.activeElement;
+      const isFormField =
+        activeElement &&
+        (activeElement.tagName === "INPUT" ||
+          activeElement.tagName === "TEXTAREA" ||
+          activeElement.tagName === "SELECT" ||
+          (activeElement as HTMLElement).isContentEditable ||
+          activeElement.getAttribute("contenteditable") === "true");
+
+      if (isFormField) {
+        return;
+      }
+
       const previousSlide = getPreviousSlide();
       const nextSlide = getNextSlide();
 
