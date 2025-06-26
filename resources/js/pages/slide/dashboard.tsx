@@ -122,7 +122,7 @@ const Dashboard = ({
 }: DashboardProps) => {
   const [isPolling, setIsPolling] = useState(false);
 
-  const { start, stop } = usePoll(5000, {}, { autoStart: false });
+  const { start, stop } = usePoll(3000, {}, { autoStart: false });
 
   const togglePolling = () => {
     if (isPolling) {
@@ -245,19 +245,19 @@ const Dashboard = ({
         {/* Ticket sales chart */}
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4, duration: 0.6 }}>
           <div className="h-full rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
-            <Deferred data="ticketSalesData" fallback={<div>Loading...</div>}>
-              <>
-                <div className="mb-6 flex items-center justify-between">
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900">チケット売上枚数</h3>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Button onClick={() => router.reload({ only: ["ticketSalesData"] })} variant="outline" size="icon">
-                      <RefreshCw className="h-4 w-4" />
-                    </Button>
-                  </div>
+            <>
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900">チケット売上枚数</h3>
                 </div>
-                <div className="w-full">
+                <div className="flex items-center space-x-2">
+                  <Button onClick={() => router.reload({ only: ["ticketSalesData"] })} variant="outline" size="icon">
+                    <RefreshCw className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+              <div className="w-full">
+                <Deferred data="ticketSalesData" fallback={<div>Loading...</div>}>
                   <ChartContainer config={salesChartConfig} className="h-[300px] w-full">
                     <BarChart data={ticketSalesData}>
                       <CartesianGrid strokeDasharray="3 3" />
@@ -269,9 +269,9 @@ const Dashboard = ({
                       <Bar dataKey="regular" stackId="a" fill="var(--color-regular)" radius={[8, 8, 0, 0]} />
                     </BarChart>
                   </ChartContainer>
-                </div>
-              </>
-            </Deferred>
+                </Deferred>
+              </div>
+            </>
           </div>
         </motion.div>
 

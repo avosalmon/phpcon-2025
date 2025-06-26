@@ -12,11 +12,11 @@ class SponsorSeeder extends Seeder
      */
     public function run(): void
     {
-        $sponsors = [
-            ['name' => 'Laravel Japan', 'tier' => 'platinum'],
-            ['name' => 'Amazon Web Services', 'tier' => 'gold'],
+        Sponsor::insert([
+            ['name' => 'Laravel', 'tier' => 'platinum'],
+            ['name' => 'AWS', 'tier' => 'gold'],
             ['name' => 'Google Cloud', 'tier' => 'gold'],
-            ['name' => 'Microsoft Azure', 'tier' => 'gold'],
+            ['name' => 'OpenAI', 'tier' => 'gold'],
             ['name' => 'GitHub', 'tier' => 'silver'],
             ['name' => 'Stripe', 'tier' => 'silver'],
             ['name' => 'Twilio', 'tier' => 'silver'],
@@ -25,10 +25,6 @@ class SponsorSeeder extends Seeder
             ['name' => 'Mailgun', 'tier' => 'bronze'],
             ['name' => 'Algolia', 'tier' => 'bronze'],
             ['name' => 'Vonage', 'tier' => 'bronze'],
-        ];
-
-        foreach ($sponsors as $sponsor) {
-            Sponsor::create($sponsor);
-        }
+        ]);
     }
 }

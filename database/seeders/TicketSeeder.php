@@ -18,7 +18,7 @@ class TicketSeeder extends Seeder
         $attendees = Attendee::all();
 
         foreach ($attendees as $attendee) {
-            $type = rand(1, 10) <= 6 ? 'early_bird' : 'regular';
+            $type = rand(1, 10) <= 4 ? 'early_bird' : 'regular';
             $price = $type === 'early_bird' ? 12_000 : 18_000;
 
             // Random purchase date in the last 6 months
