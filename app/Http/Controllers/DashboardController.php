@@ -23,41 +23,16 @@ class DashboardController extends Controller
         $totalTalkProposals = TalkProposal::count();
         $totalSponsors = Sponsor::count();
 
-        $metrics = [
-            [
-                'title' => 'チケット売上',
-                'value' => '¥'.number_format($totalRevenue),
-                'subtitle' => '目標の 85% 達成',
-            ],
-            [
-                'title' => '参加者数',
-                'value' => number_format($totalAttendees).'名',
-                'subtitle' => '定員 1,500 名',
-            ],
-            [
-                'title' => 'トーク応募',
-                'value' => (string) $totalTalkProposals.'件',
-                'subtitle' => '採択予定 24 件',
-            ],
-            [
-                'title' => 'スポンサー',
-                'value' => (string) $totalSponsors.'社',
-                'subtitle' => '目標 20 社',
-            ],
-        ];
-
         $attendeesByCountry = Attendee::select('country_code')
             ->selectRaw('COUNT(*) as attendees')
             ->groupBy('country_code')
             ->orderByDesc('attendees')
             ->get()
-            ->map(function ($item) {
-                return [
-                    'country' => strtolower($item->country_code),
-                    'attendees' => $item->attendees,
-                    'fill' => $this->getCountryColor($item->country_code),
-                ];
-            });
+            ->map(fn ($item) => [
+                'country' => strtolower($item->country_code),
+                'attendees' => $item->attendees,
+                'fill' => $this->getCountryColor($item->country_code),
+            ]);
 
         $ticketSalesData = Inertia::defer(function () {
             [$monthFormat, $yearMonthFormat] = match (DB::getDriverName()) {
@@ -74,41 +49,32 @@ class DashboardController extends Controller
             )
                 ->groupBy(DB::raw($yearMonthFormat))
                 ->orderBy(DB::raw($yearMonthFormat))
-                ->get()
-                ->map(function ($item) {
-                    return [
-                        'month' => $item->month,
-                        'sales' => (int) $item->sales,
-                        'early' => $item->early,
-                        'regular' => $item->regular,
-                    ];
-                });
+                ->get();
         });
 
         $talkCategoriesData = TalkProposal::select('category')
             ->selectRaw('COUNT(*) as submissions')
             ->groupBy('category')
             ->get()
-            ->map(function ($item) {
-                return [
-                    'category' => $item->category,
-                    'submissions' => $item->submissions,
-                    'fill' => $this->getCategoryColor($item->category),
-                ];
-            });
+            ->map(fn ($item) => [
+                'category' => $item->category,
+                'submissions' => $item->submissions,
+                'fill' => $this->getCategoryColor($item->category),
+            ]);
 
         $trafficData = WebsiteTraffic::where('date', Carbon::today())
             ->orderBy('hour')
             ->get()
-            ->map(function ($item) {
-                return [
-                    'time' => sprintf('%02d:00', $item->hour),
-                    'visitors' => $item->visitors,
-                ];
-            });
+            ->map(fn ($item) => [
+                'time' => sprintf('%02d:00', $item->hour),
+                'visitors' => $item->visitors,
+            ]);
 
         return Inertia::render('slide/dashboard', [
-            'metrics' => $metrics,
+            'totalRevenue' => $totalRevenue,
+            'totalAttendees' => $totalAttendees,
+            'totalTalkProposals' => $totalTalkProposals,
+            'totalSponsors' => $totalSponsors,
             'attendeesByCountry' => $attendeesByCountry,
             'ticketSalesData' => $ticketSalesData,
             'talkCategoriesData' => $talkCategoriesData,

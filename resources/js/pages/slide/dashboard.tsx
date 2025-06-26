@@ -7,11 +7,10 @@ import { ReactNode } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Pie, PieChart, XAxis, YAxis } from "recharts";
 
 interface DashboardProps {
-  metrics: {
-    title: string;
-    value: string;
-    subtitle: string;
-  }[];
+  totalRevenue: number;
+  totalAttendees: number;
+  totalTalkProposals: number;
+  totalSponsors: number;
   attendeesByCountry: {
     country: string;
     attendees: number;
@@ -34,114 +33,91 @@ interface DashboardProps {
   }[];
 }
 
-const Dashboard = ({ metrics, attendeesByCountry, ticketSalesData, talkCategoriesData, trafficData }: DashboardProps) => {
-  const getMetricIcon = (title: string) => {
-    switch (title) {
-      case "チケット売上":
-        return DollarSign;
-      case "参加者数":
-        return Users;
-      case "トーク応募":
-        return Mic;
-      case "スポンサー":
-        return Building;
-      default:
-        return DollarSign;
-    }
-  };
+const attendeeChartConfig = {
+  attendees: {
+    label: "参加者数",
+  },
+  jp: {
+    label: "日本",
+    color: "#ef4444",
+  },
+  us: {
+    label: "アメリカ",
+    color: "var(--chart-2)",
+  },
+  in: {
+    label: "インド",
+    color: "var(--chart-3)",
+  },
+  de: {
+    label: "ドイツ",
+    color: "var(--chart-4)",
+  },
+  gb: {
+    label: "イギリス",
+    color: "var(--chart-5)",
+  },
+  ca: {
+    label: "カナダ",
+    color: "#3b82f6",
+  },
+  other: {
+    label: "その他",
+    color: "#8b5cf6",
+  },
+} satisfies ChartConfig;
 
-  const getMetricColor = (title: string) => {
-    switch (title) {
-      case "チケット売上":
-        return "from-green-500 to-emerald-600";
-      case "参加者数":
-        return "from-blue-500 to-blue-600";
-      case "トーク応募":
-        return "from-purple-500 to-purple-600";
-      case "スポンサー":
-        return "from-orange-500 to-orange-600";
-      default:
-        return "from-gray-500 to-gray-600";
-    }
-  };
+const salesChartConfig = {
+  early: {
+    label: "早期割引",
+    color: "#10b981",
+  },
+  regular: {
+    label: "通常価格",
+    color: "#f59e0b",
+  },
+} satisfies ChartConfig;
 
-  const attendeeChartConfig = {
-    attendees: {
-      label: "参加者数",
-    },
-    jp: {
-      label: "日本",
-      color: "#ef4444",
-    },
-    us: {
-      label: "アメリカ",
-      color: "var(--chart-2)",
-    },
-    in: {
-      label: "インド",
-      color: "var(--chart-3)",
-    },
-    de: {
-      label: "ドイツ",
-      color: "var(--chart-4)",
-    },
-    gb: {
-      label: "イギリス",
-      color: "var(--chart-5)",
-    },
-    ca: {
-      label: "カナダ",
-      color: "#3b82f6",
-    },
-    other: {
-      label: "その他",
-      color: "#8b5cf6",
-    },
-  } satisfies ChartConfig;
+const talkCategoryChartConfig = {
+  laravel: {
+    label: "Laravel/PHP",
+    color: "#ef4444",
+  },
+  frontend: {
+    label: "Frontend",
+    color: "#3b82f6",
+  },
+  devops: {
+    label: "DevOps",
+    color: "#10b981",
+  },
+  ai: {
+    label: "AI",
+    color: "#f59e0b",
+  },
+  other: {
+    label: "その他",
+    color: "#8b5cf6",
+  },
+} satisfies ChartConfig;
 
-  const salesChartConfig = {
-    early: {
-      label: "早期割引",
-      color: "#10b981",
-    },
-    regular: {
-      label: "通常価格",
-      color: "#f59e0b",
-    },
-  } satisfies ChartConfig;
+const websiteTrafficChartConfig = {
+  visitors: {
+    label: "訪問者数",
+    color: "rgb(139, 92, 246)",
+  },
+} satisfies ChartConfig;
 
-  const talkCategoryChartConfig = {
-    laravel: {
-      label: "Laravel/PHP",
-      color: "#ef4444",
-    },
-    frontend: {
-      label: "Frontend",
-      color: "#3b82f6",
-    },
-    devops: {
-      label: "DevOps",
-      color: "#10b981",
-    },
-    ai: {
-      label: "AI",
-      color: "#f59e0b",
-    },
-    other: {
-      label: "その他",
-      color: "#8b5cf6",
-    },
-  } satisfies ChartConfig;
-
-  const websiteTrafficChartConfig = {
-    visitors: {
-      label: "訪問者数",
-      color: "rgb(139, 92, 246)",
-    },
-  } satisfies ChartConfig;
-
-  const totalAttendees = attendeesByCountry.reduce((sum, country) => sum + country.attendees, 0);
-
+const Dashboard = ({
+  totalRevenue,
+  totalAttendees,
+  totalTalkProposals,
+  totalSponsors,
+  attendeesByCountry,
+  ticketSalesData,
+  talkCategoriesData,
+  trafficData,
+}: DashboardProps) => {
   return (
     <div className="space-y-6 rounded-2xl border border-white/20 bg-white/95 p-8 shadow-lg backdrop-blur-sm">
       <motion.div
@@ -174,30 +150,73 @@ const Dashboard = ({ metrics, attendeesByCountry, ticketSalesData, talkCategorie
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6 }}
       >
-        {metrics.map((metric, index) => {
-          const IconComponent = getMetricIcon(metric.title);
-          const colorClass = getMetricColor(metric.title);
+        <motion.div
+          className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          whileHover={{ y: -5 }}
+        >
+          <div className="mb-4 flex items-center justify-between">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-r from-green-500 to-emerald-600">
+              <DollarSign className="h-6 w-6 text-white" />
+            </div>
+          </div>
+          <h3 className="mb-1 text-2xl font-bold text-gray-900">¥{totalRevenue.toLocaleString()}</h3>
+          <p className="mb-1 text-sm text-gray-600">チケット売上</p>
+          <p className="text-xs text-gray-500">目標の 85% 達成</p>
+        </motion.div>
 
-          return (
-            <motion.div
-              key={metric.title}
-              className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
-              whileHover={{ y: -5 }}
-            >
-              <div className="mb-4 flex items-center justify-between">
-                <div className={`h-12 w-12 bg-gradient-to-r ${colorClass} flex items-center justify-center rounded-lg`}>
-                  <IconComponent className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <h3 className="mb-1 text-2xl font-bold text-gray-900">{metric.value}</h3>
-              <p className="mb-1 text-sm text-gray-600">{metric.title}</p>
-              <p className="text-xs text-gray-500">{metric.subtitle}</p>
-            </motion.div>
-          );
-        })}
+        <motion.div
+          className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          whileHover={{ y: -5 }}
+        >
+          <div className="mb-4 flex items-center justify-between">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-blue-600">
+              <Users className="h-6 w-6 text-white" />
+            </div>
+          </div>
+          <h3 className="mb-1 text-2xl font-bold text-gray-900">{totalAttendees.toLocaleString()}名</h3>
+          <p className="mb-1 text-sm text-gray-600">参加者数</p>
+          <p className="text-xs text-gray-500">定員 1,500 名</p>
+        </motion.div>
+
+        <motion.div
+          className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          whileHover={{ y: -5 }}
+        >
+          <div className="mb-4 flex items-center justify-between">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-r from-purple-500 to-purple-600">
+              <Mic className="h-6 w-6 text-white" />
+            </div>
+          </div>
+          <h3 className="mb-1 text-2xl font-bold text-gray-900">{totalTalkProposals}件</h3>
+          <p className="mb-1 text-sm text-gray-600">トーク応募</p>
+          <p className="text-xs text-gray-500">採択予定 24 件</p>
+        </motion.div>
+
+        <motion.div
+          className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          whileHover={{ y: -5 }}
+        >
+          <div className="mb-4 flex items-center justify-between">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-r from-orange-500 to-orange-600">
+              <Building className="h-6 w-6 text-white" />
+            </div>
+          </div>
+          <h3 className="mb-1 text-2xl font-bold text-gray-900">{totalSponsors}社</h3>
+          <p className="mb-1 text-sm text-gray-600">スポンサー</p>
+          <p className="text-xs text-gray-500">目標 20 社</p>
+        </motion.div>
       </motion.div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -259,7 +278,7 @@ const Dashboard = ({ metrics, attendeesByCountry, ticketSalesData, talkCategorie
                   />
                   <XAxis dataKey="attendees" type="number" hide />
                   <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                  <Bar dataKey="attendees" layout="vertical" radius={8} />
+                  <Bar dataKey="attendees" radius={8} />
                 </BarChart>
               </ChartContainer>
             </div>
@@ -296,7 +315,7 @@ const Dashboard = ({ metrics, attendeesByCountry, ticketSalesData, talkCategorie
               <PieChart>
                 <Pie data={talkCategoriesData} dataKey="submissions" nameKey="category" />
                 <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                <ChartLegend content={<ChartLegendContent nameKey="category" />} />
+                <ChartLegend content={<ChartLegendContent />} />
               </PieChart>
             </ChartContainer>
           </div>
