@@ -1,7 +1,8 @@
+import { Button } from "@/components/ui/button";
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { SlideLayout } from "@/layouts/slide-layout";
-import { Deferred } from "@inertiajs/react";
-import { BarChart3, Building, DollarSign, Download, Globe, Mic, Users } from "lucide-react";
+import { Deferred, router } from "@inertiajs/react";
+import { BarChart3, Building, DollarSign, Download, Globe, Mic, RefreshCw, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { ReactNode } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Pie, PieChart, XAxis, YAxis } from "recharts";
@@ -135,6 +136,9 @@ const Dashboard = ({
             <p className="text-sm text-gray-600">Laravel Live Japan 2026</p>
           </div>
         </div>
+        <Button onClick={() => router.reload()} variant="outline" size="icon" className="bg-white hover:bg-gray-50">
+          <RefreshCw className="h-4 w-4" />
+        </Button>
       </motion.div>
 
       <motion.div
