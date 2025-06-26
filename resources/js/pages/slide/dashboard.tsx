@@ -3,7 +3,7 @@ import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTool
 import { SlideLayout } from "@/layouts/slide-layout";
 import { cn } from "@/lib/utils";
 import { Deferred, router, usePoll } from "@inertiajs/react";
-import { BarChart3, Building, DollarSign, Download, Globe, Mic, Pause, Play, RefreshCw, Users } from "lucide-react";
+import { BarChart3, Building, DollarSign, Globe, Mic, Pause, Play, RefreshCw, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { ReactNode, useState } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Pie, PieChart, XAxis, YAxis } from "recharts";
@@ -252,10 +252,9 @@ const Dashboard = ({
                     <h3 className="text-xl font-semibold text-gray-900">チケット売上枚数</h3>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button className="flex items-center space-x-2 px-3 py-2 text-sm text-purple-600 transition-colors hover:text-purple-700">
-                      <Download className="h-4 w-4" />
-                      <span>エクスポート</span>
-                    </button>
+                    <Button onClick={() => router.reload({ only: ["ticketSalesData"] })} variant="outline" size="icon">
+                      <RefreshCw className="h-4 w-4" />
+                    </Button>
                   </div>
                 </div>
                 <div className="w-full">
