@@ -1,5 +1,6 @@
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { SlideLayout } from "@/layouts/slide-layout";
+import { Deferred } from "@inertiajs/react";
 import { ArrowDownRight, ArrowUpRight, BarChart3, Building, Calendar, DollarSign, Download, Globe, Mic, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { ReactNode } from "react";
@@ -209,30 +210,34 @@ const Dashboard = ({ metrics, attendeesByCountry, ticketSalesData, talkCategorie
         {/* Ticket sales chart */}
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4, duration: 0.6 }}>
           <div className="h-full rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
-            <div className="mb-6 flex items-center justify-between">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900">チケット売上枚数</h3>
-              </div>
-              <div className="flex items-center space-x-2">
-                <button className="flex items-center space-x-2 px-3 py-2 text-sm text-purple-600 transition-colors hover:text-purple-700">
-                  <Download className="h-4 w-4" />
-                  <span>エクスポート</span>
-                </button>
-              </div>
-            </div>
-            <div className="w-full">
-              <ChartContainer config={salesChartConfig} className="h-[300px] w-full">
-                <BarChart data={ticketSalesData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" tickLine={false} axisLine={false} className="text-xs" />
-                  <YAxis tickLine={false} axisLine={false} className="text-xs" tickFormatter={(value) => `${value}枚`} />
-                  <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-                  <ChartLegend content={<ChartLegendContent />} />
-                  <Bar dataKey="early" stackId="a" fill="var(--color-early)" radius={[0, 0, 8, 8]} />
-                  <Bar dataKey="regular" stackId="a" fill="var(--color-regular)" radius={[8, 8, 0, 0]} />
-                </BarChart>
-              </ChartContainer>
-            </div>
+            <Deferred data="ticketSalesData" fallback={<div>Loading...</div>}>
+              <>
+                <div className="mb-6 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900">チケット売上枚数</h3>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <button className="flex items-center space-x-2 px-3 py-2 text-sm text-purple-600 transition-colors hover:text-purple-700">
+                      <Download className="h-4 w-4" />
+                      <span>エクスポート</span>
+                    </button>
+                  </div>
+                </div>
+                <div className="w-full">
+                  <ChartContainer config={salesChartConfig} className="h-[300px] w-full">
+                    <BarChart data={ticketSalesData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="month" tickLine={false} axisLine={false} className="text-xs" />
+                      <YAxis tickLine={false} axisLine={false} className="text-xs" tickFormatter={(value) => `${value}枚`} />
+                      <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                      <ChartLegend content={<ChartLegendContent />} />
+                      <Bar dataKey="early" stackId="a" fill="var(--color-early)" radius={[0, 0, 8, 8]} />
+                      <Bar dataKey="regular" stackId="a" fill="var(--color-regular)" radius={[8, 8, 0, 0]} />
+                    </BarChart>
+                  </ChartContainer>
+                </div>
+              </>
+            </Deferred>
           </div>
         </motion.div>
 

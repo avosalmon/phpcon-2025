@@ -67,33 +67,31 @@ class DashboardController extends Controller
                 ];
             });
 
-        $dbDriver = DB::getDriverName();
+        $ticketSalesData = Inertia::defer(function () {
+            [$monthFormat, $yearMonthFormat] = match (DB::getDriverName()) {
+                'sqlite' => ['strftime("%m", purchased_at) || "月"', 'strftime("%Y-%m", purchased_at)'],
+                'pgsql' => ["TO_CHAR(purchased_at, 'MM') || '月'", "TO_CHAR(purchased_at, 'YYYY-MM')"],
+                default => ['DATE_FORMAT(purchased_at, "%m月")', 'DATE_FORMAT(purchased_at, "%Y-%m")'],
+            };
 
-        if ($dbDriver === 'sqlite') {
-            $monthFormat = 'strftime("%m", purchased_at) || "月"';
-            $yearMonthFormat = 'strftime("%Y-%m", purchased_at)';
-        } elseif ($dbDriver === 'pgsql') {
-            $monthFormat = "TO_CHAR(purchased_at, 'MM') || '月'";
-            $yearMonthFormat = "TO_CHAR(purchased_at, 'YYYY-MM')";
-        }
-
-        $ticketSalesData = Ticket::select(
-            DB::raw("{$monthFormat} as month"),
-            DB::raw('SUM(price) as sales'),
-            DB::raw('SUM(CASE WHEN type = \'early_bird\' THEN 1 ELSE 0 END) as early'),
-            DB::raw('SUM(CASE WHEN type = \'regular\' THEN 1 ELSE 0 END) as regular')
-        )
-            ->groupBy(DB::raw($yearMonthFormat))
-            ->orderBy(DB::raw($yearMonthFormat))
-            ->get()
-            ->map(function ($item) {
-                return [
-                    'month' => $item->month,
-                    'sales' => (int) $item->sales,
-                    'early' => $item->early,
-                    'regular' => $item->regular,
-                ];
-            });
+            return Ticket::select(
+                DB::raw("{$monthFormat} as month"),
+                DB::raw('SUM(price) as sales'),
+                DB::raw("SUM(CASE WHEN type = 'early_bird' THEN 1 ELSE 0 END) as early"),
+                DB::raw("SUM(CASE WHEN type = 'regular' THEN 1 ELSE 0 END) as regular")
+            )
+                ->groupBy(DB::raw($yearMonthFormat))
+                ->orderBy(DB::raw($yearMonthFormat))
+                ->get()
+                ->map(function ($item) {
+                    return [
+                        'month' => $item->month,
+                        'sales' => (int) $item->sales,
+                        'early' => $item->early,
+                        'regular' => $item->regular,
+                    ];
+                });
+        });
 
         $talkCategoriesData = TalkProposal::select('category')
             ->selectRaw('COUNT(*) as submissions')
