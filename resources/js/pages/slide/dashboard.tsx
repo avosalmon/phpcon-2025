@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { SlideLayout } from "@/layouts/slide-layout";
-import { Deferred, router } from "@inertiajs/react";
-import { BarChart3, Building, DollarSign, Download, Globe, Mic, RefreshCw, Users } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Deferred, router, usePoll } from "@inertiajs/react";
+import { BarChart3, Building, DollarSign, Download, Globe, Mic, Pause, Play, RefreshCw, Users } from "lucide-react";
 import { motion } from "motion/react";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Pie, PieChart, XAxis, YAxis } from "recharts";
 
 interface DashboardProps {
@@ -119,6 +120,20 @@ const Dashboard = ({
   talkCategoriesData,
   trafficData,
 }: DashboardProps) => {
+  const [isPolling, setIsPolling] = useState(false);
+
+  const { start, stop } = usePoll(5000, {}, { autoStart: false });
+
+  const togglePolling = () => {
+    if (isPolling) {
+      stop();
+      setIsPolling(false);
+    } else {
+      start();
+      setIsPolling(true);
+    }
+  };
+
   return (
     <div className="space-y-6 rounded-2xl border border-white/20 bg-white/95 p-8 shadow-lg backdrop-blur-sm">
       <motion.div
@@ -136,9 +151,19 @@ const Dashboard = ({
             <p className="text-sm text-gray-600">Laravel Live Japan 2026</p>
           </div>
         </div>
-        <Button onClick={() => router.reload()} variant="outline" size="icon" className="bg-white hover:bg-gray-50">
-          <RefreshCw className="h-4 w-4" />
-        </Button>
+        <div className="flex items-center space-x-2">
+          <Button
+            onClick={togglePolling}
+            variant="outline"
+            size="icon"
+            className={cn(isPolling && "border-green-200 bg-green-50 text-green-600 hover:bg-green-100")}
+          >
+            {isPolling ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+          </Button>
+          <Button onClick={() => router.reload()} variant="outline" size="icon">
+            <RefreshCw className="h-4 w-4" />
+          </Button>
+        </div>
       </motion.div>
 
       <motion.div
