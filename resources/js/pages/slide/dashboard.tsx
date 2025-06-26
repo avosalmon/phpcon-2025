@@ -1,7 +1,7 @@
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { SlideLayout } from "@/layouts/slide-layout";
 import { Deferred } from "@inertiajs/react";
-import { ArrowDownRight, ArrowUpRight, BarChart3, Building, Calendar, DollarSign, Download, Globe, Mic, Users } from "lucide-react";
+import { BarChart3, Building, Calendar, DollarSign, Download, Globe, Mic, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { ReactNode } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Pie, PieChart, XAxis, YAxis } from "recharts";
@@ -10,8 +10,6 @@ interface DashboardProps {
   metrics: {
     title: string;
     value: string;
-    change: string;
-    trend: string;
     subtitle: string;
   }[];
   attendeesByCountry: {
@@ -192,10 +190,6 @@ const Dashboard = ({ metrics, attendeesByCountry, ticketSalesData, talkCategorie
               <div className="mb-4 flex items-center justify-between">
                 <div className={`h-12 w-12 bg-gradient-to-r ${colorClass} flex items-center justify-center rounded-lg`}>
                   <IconComponent className="h-6 w-6 text-white" />
-                </div>
-                <div className={`flex items-center space-x-1 text-sm font-medium ${metric.trend === "up" ? "text-green-600" : "text-red-600"}`}>
-                  {metric.trend === "up" ? <ArrowUpRight className="h-4 w-4" /> : <ArrowDownRight className="h-4 w-4" />}
-                  <span>{metric.change}</span>
                 </div>
               </div>
               <h3 className="mb-1 text-2xl font-bold text-gray-900">{metric.value}</h3>

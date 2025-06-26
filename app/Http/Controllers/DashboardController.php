@@ -27,29 +27,21 @@ class DashboardController extends Controller
             [
                 'title' => 'チケット売上',
                 'value' => '¥'.number_format($totalRevenue),
-                'change' => '+18.5%',
-                'trend' => 'up',
                 'subtitle' => '目標の 85% 達成',
             ],
             [
                 'title' => '参加者数',
-                'value' => number_format($totalAttendees),
-                'change' => '+12.3%',
-                'trend' => 'up',
+                'value' => number_format($totalAttendees).'名',
                 'subtitle' => '定員 1,500 名',
             ],
             [
                 'title' => 'トーク応募',
-                'value' => (string) $totalTalkProposals,
-                'change' => '+5.2%',
-                'trend' => 'up',
+                'value' => (string) $totalTalkProposals.'件',
                 'subtitle' => '採択予定 24 件',
             ],
             [
                 'title' => 'スポンサー',
-                'value' => (string) $totalSponsors,
-                'change' => '+2.1%',
-                'trend' => 'up',
+                'value' => (string) $totalSponsors.'社',
                 'subtitle' => '目標 20 社',
             ],
         ];
