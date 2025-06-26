@@ -1,7 +1,7 @@
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { SlideLayout } from "@/layouts/slide-layout";
 import { Deferred } from "@inertiajs/react";
-import { BarChart3, Building, Calendar, DollarSign, Download, Globe, Mic, Users } from "lucide-react";
+import { BarChart3, Building, DollarSign, Download, Globe, Mic, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { ReactNode } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Pie, PieChart, XAxis, YAxis } from "recharts";
@@ -135,13 +135,6 @@ const Dashboard = ({
             <p className="text-sm text-gray-600">Laravel Live Japan 2026</p>
           </div>
         </div>
-
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2 rounded-lg border bg-white px-3 py-2 shadow-sm">
-            <Calendar className="h-4 w-4 text-gray-500" />
-            <span className="text-sm text-gray-700">2026年5月XX日</span>
-          </div>
-        </div>
       </motion.div>
 
       <motion.div
@@ -164,7 +157,7 @@ const Dashboard = ({
           </div>
           <h3 className="mb-1 text-2xl font-bold text-gray-900">¥{totalRevenue.toLocaleString()}</h3>
           <p className="mb-1 text-sm text-gray-600">チケット売上</p>
-          <p className="text-xs text-gray-500">目標の 85% 達成</p>
+          <p className="text-xs text-gray-500">目標の {Math.round((totalRevenue / (15_000 * 1500)) * 100)}% 達成</p>
         </motion.div>
 
         <motion.div
