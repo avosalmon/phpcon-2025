@@ -11,16 +11,16 @@ interface DashboardProps {
   totalAttendees: number;
   totalTalkProposals: number;
   totalSponsors: number;
-  attendeesByCountry: {
-    country: string;
-    attendees: number;
-    fill: string;
-  }[];
   ticketSalesData: {
     month: string;
     sales: number;
     early: number;
     regular: number;
+  }[];
+  attendeesByCountry: {
+    country: string;
+    attendees: number;
+    fill: string;
   }[];
   talkCategoriesData: {
     category: string;
@@ -113,8 +113,8 @@ const Dashboard = ({
   totalAttendees,
   totalTalkProposals,
   totalSponsors,
-  attendeesByCountry,
   ticketSalesData,
+  attendeesByCountry,
   talkCategoriesData,
   trafficData,
 }: DashboardProps) => {

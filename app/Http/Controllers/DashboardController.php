@@ -23,17 +23,6 @@ class DashboardController extends Controller
         $totalTalkProposals = TalkProposal::count();
         $totalSponsors = Sponsor::count();
 
-        $attendeesByCountry = Attendee::select('country_code')
-            ->selectRaw('COUNT(*) as attendees')
-            ->groupBy('country_code')
-            ->orderByDesc('attendees')
-            ->get()
-            ->map(fn ($item) => [
-                'country' => strtolower($item->country_code),
-                'attendees' => $item->attendees,
-                'fill' => $this->getCountryColor($item->country_code),
-            ]);
-
         $ticketSalesData = Inertia::defer(function () {
             [$monthFormat, $yearMonthFormat] = match (DB::getDriverName()) {
                 'sqlite' => ['strftime("%m", purchased_at) || "月"', 'strftime("%Y-%m", purchased_at)'],
@@ -52,14 +41,27 @@ class DashboardController extends Controller
                 ->get();
         });
 
-        $talkCategoriesData = TalkProposal::select('category')
-            ->selectRaw('COUNT(*) as submissions')
+        $attendeesByCountry = Attendee::selectRaw(<<<'SQL'
+                LOWER(country_code) as country, COUNT(*) as attendees
+            SQL)
+            ->groupBy('country')
+            ->orderByDesc('attendees')
+            ->get()
+            ->map(fn ($item) => [
+                'country' => $item->country,
+                'attendees' => $item->attendees,
+                'fill' => "var(--color-{$item->country})",
+            ]);
+
+        $talkCategoriesData = TalkProposal::selectRaw(<<<'SQL'
+                category, COUNT(*) as submissions
+            SQL)
             ->groupBy('category')
             ->get()
             ->map(fn ($item) => [
                 'category' => $item->category,
                 'submissions' => $item->submissions,
-                'fill' => $this->getCategoryColor($item->category),
+                'fill' => "var(--color-{$item->category})",
             ]);
 
         $trafficData = WebsiteTraffic::where('date', Carbon::today())
@@ -80,32 +82,5 @@ class DashboardController extends Controller
             'talkCategoriesData' => $talkCategoriesData,
             'trafficData' => $trafficData,
         ]);
-    }
-
-    private function getCountryColor(string $countryCode): string
-    {
-        $colors = [
-            'JP' => 'var(--chart-1)',
-            'US' => 'var(--chart-2)',
-            'IN' => 'var(--chart-3)',
-            'DE' => 'var(--chart-4)',
-            'GB' => 'var(--chart-5)',
-            'CA' => '#3b82f6',
-        ];
-
-        return $colors[$countryCode] ?? '#8b5cf6';
-    }
-
-    private function getCategoryColor(string $category): string
-    {
-        $colors = [
-            'laravel' => '#ef4444',
-            'frontend' => '#3b82f6',
-            'devops' => '#10b981',
-            'ai' => '#f59e0b',
-            'other' => '#8b5cf6',
-        ];
-
-        return $colors[$category] ?? '#8b5cf6';
     }
 }
