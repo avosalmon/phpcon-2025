@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $totalTalkProposals = fn () => TalkProposal::count();
         $totalSponsors = fn () => Sponsor::count();
 
-        $ticketSalesData = Inertia::defer(function () {
+        $ticketSales = Inertia::defer(function () {
             [$monthFormat, $yearMonthFormat] = match (DB::getDriverName()) {
                 'sqlite' => ['strftime("%m", purchased_at) || "月"', 'strftime("%Y-%m", purchased_at)'],
                 'pgsql' => ["TO_CHAR(purchased_at, 'MM') || '月'", "TO_CHAR(purchased_at, 'YYYY-MM')"],
@@ -53,7 +53,7 @@ class DashboardController extends Controller
                 'fill' => "var(--color-{$item->country})",
             ]);
 
-        $talkCategoriesData = fn () => TalkProposal::selectRaw(<<<'SQL'
+        $talkCategories = fn () => TalkProposal::selectRaw(<<<'SQL'
                 category, COUNT(*) as submissions
             SQL)
             ->groupBy('category')
@@ -64,7 +64,7 @@ class DashboardController extends Controller
                 'fill' => "var(--color-{$item->category})",
             ]);
 
-        $trafficData = fn () => WebsiteTraffic::where('date', Carbon::today())
+        $websiteTraffic = fn () => WebsiteTraffic::where('date', Carbon::today())
             ->orderBy('hour')
             ->get()
             ->map(fn ($item) => [
@@ -78,9 +78,9 @@ class DashboardController extends Controller
             'totalTalkProposals' => $totalTalkProposals,
             'totalSponsors' => $totalSponsors,
             'attendeesByCountry' => $attendeesByCountry,
-            'ticketSalesData' => $ticketSalesData,
-            'talkCategoriesData' => $talkCategoriesData,
-            'trafficData' => $trafficData,
+            'ticketSales' => $ticketSales,
+            'talkCategories' => $talkCategories,
+            'websiteTraffic' => $websiteTraffic,
         ]);
     }
 }

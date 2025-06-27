@@ -14,7 +14,7 @@ interface DashboardProps {
   totalAttendees: number;
   totalTalkProposals: number;
   totalSponsors: number;
-  ticketSalesData: {
+  ticketSales: {
     month: string;
     sales: number;
     early: number;
@@ -25,12 +25,12 @@ interface DashboardProps {
     attendees: number;
     fill: string;
   }[];
-  talkCategoriesData: {
+  talkCategories: {
     category: string;
     submissions: number;
     fill: string;
   }[];
-  trafficData: {
+  websiteTraffic: {
     time: string;
     visitors: number;
   }[];
@@ -116,10 +116,10 @@ const Dashboard = ({
   totalAttendees,
   totalTalkProposals,
   totalSponsors,
-  ticketSalesData,
+  ticketSales,
   attendeesByCountry,
-  talkCategoriesData,
-  trafficData,
+  talkCategories,
+  websiteTraffic,
 }: DashboardProps) => {
   const [isPolling, setIsPolling] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -256,7 +256,7 @@ const Dashboard = ({
                   <Button
                     onClick={() =>
                       router.reload({
-                        only: ["ticketSalesData"],
+                        only: ["ticketSales"],
                         onStart: () => setIsLoading(true),
                         onFinish: () => setIsLoading(false),
                       })
@@ -269,9 +269,9 @@ const Dashboard = ({
                 </div>
               </div>
               <div className="w-full">
-                <Deferred data="ticketSalesData" fallback={<Skeleton className="h-[300px] w-full" />}>
+                <Deferred data="ticketSales" fallback={<Skeleton className="h-[300px] w-full" />}>
                   <ChartContainer config={salesChartConfig} className="h-[300px] w-full">
-                    <BarChart data={ticketSalesData}>
+                    <BarChart data={ticketSales}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="month" tickLine={false} axisLine={false} className="text-xs" />
                       <YAxis tickLine={false} axisLine={false} className="text-xs" tickFormatter={(value) => `${value}枚`} />
@@ -345,7 +345,7 @@ const Dashboard = ({
           <div className="flex items-center justify-center">
             <ChartContainer config={talkCategoryChartConfig} className="h-[200px] w-full">
               <PieChart>
-                <Pie data={talkCategoriesData} dataKey="submissions" nameKey="category" />
+                <Pie data={talkCategories} dataKey="submissions" nameKey="category" />
                 <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
                 <ChartLegend content={<ChartLegendContent />} />
               </PieChart>
@@ -361,7 +361,7 @@ const Dashboard = ({
           </div>
           <div className="w-full">
             <ChartContainer config={websiteTrafficChartConfig} className="h-[200px] w-full">
-              <AreaChart data={trafficData}>
+              <AreaChart data={websiteTraffic}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" tickLine={false} axisLine={false} className="text-xs" />
                 <YAxis tickLine={false} axisLine={false} className="text-xs" />
