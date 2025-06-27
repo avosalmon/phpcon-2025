@@ -11,7 +11,7 @@ use function Pest\Laravel\post;
 
 describe('index', function () {
     it('should return a list of talk proposals', function () {
-        $proposals = TalkProposal::factory()->count(2)->create();
+        TalkProposal::factory()->count(2)->create();
 
         get('/slides/talk-proposals')
             ->assertOk()
