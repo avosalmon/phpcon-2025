@@ -47,10 +47,10 @@ const Comparison = () => {
 
         <div className="space-y-6">
           {[
-            { icon: Code, text: "1つのコードベースで完結" },
-            { icon: Database, text: "APIは不要" },
-            { icon: Zap, text: "コントローラーから直接データを渡す" },
-            { icon: ArrowRight, text: "バックエンドのルーティングのみ" },
+            { icon: Code, text: "フロントエンドとバックエンドを1つのコードベースで開発" },
+            { icon: Database, text: "コントローラーから直接データを渡す" },
+            { icon: Zap, text: "コンポーネントのPropsとしてデータを受け取る" },
+            { icon: ArrowRight, text: "バックエンドのルーティングで画面遷移" },
           ].map((item, index) => (
             <motion.div
               key={index}
