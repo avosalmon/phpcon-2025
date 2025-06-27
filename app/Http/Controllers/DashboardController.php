@@ -36,7 +36,7 @@ class DashboardController extends Controller
                 DB::raw("SUM(CASE WHEN type = 'early_bird' THEN 1 ELSE 0 END) as early"),
                 DB::raw("SUM(CASE WHEN type = 'regular' THEN 1 ELSE 0 END) as regular")
             )
-                ->groupBy(DB::raw($yearMonthFormat))
+                ->groupBy(DB::raw($yearMonthFormat), DB::raw($monthFormat))
                 ->orderBy(DB::raw($yearMonthFormat))
                 ->get();
         });
