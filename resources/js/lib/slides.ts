@@ -11,6 +11,7 @@ export const slides = [
   "inertia",
   "inertia-tagline",
   "speakers",
+  "comparison",
   "who-is-it-for",
   "installation",
   "talk-proposals/create",
