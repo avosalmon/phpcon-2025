@@ -25,9 +25,9 @@ class DashboardController extends Controller
 
         $ticketSales = Inertia::defer(function () {
             [$monthFormat, $yearMonthFormat] = match (DB::getDriverName()) {
-                'sqlite' => ['strftime("%m", purchased_at) || "月"', 'strftime("%Y-%m", purchased_at)'],
-                'pgsql' => ["TO_CHAR(purchased_at, 'MM') || '月'", "TO_CHAR(purchased_at, 'YYYY-MM')"],
-                default => ['DATE_FORMAT(purchased_at, "%m月")', 'DATE_FORMAT(purchased_at, "%Y-%m")'],
+                'sqlite' => ['CAST(strftime("%m", purchased_at) AS INTEGER)', 'strftime("%Y-%m", purchased_at)'],
+                'pgsql' => ["TO_CHAR(purchased_at, 'FMMM')", "TO_CHAR(purchased_at, 'YYYY-MM')"],
+                default => ['DATE_FORMAT(purchased_at, "%c")', 'DATE_FORMAT(purchased_at, "%Y-%m")'],
             };
 
             return Ticket::select(

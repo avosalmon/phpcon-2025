@@ -9,32 +9,16 @@ import { motion } from "motion/react";
 import { ReactNode, useState } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Pie, PieChart, XAxis, YAxis } from "recharts";
 
-interface DashboardProps {
-  totalRevenue: number;
-  totalAttendees: number;
-  totalTalkProposals: number;
-  totalSponsors: number;
-  ticketSales: {
-    month: string;
-    sales: number;
-    early: number;
-    regular: number;
-  }[];
-  attendeesByCountry: {
-    country: string;
-    attendees: number;
-    fill: string;
-  }[];
-  talkCategories: {
-    category: string;
-    submissions: number;
-    fill: string;
-  }[];
-  websiteTraffic: {
-    time: string;
-    visitors: number;
-  }[];
-}
+const salesChartConfig = {
+  early: {
+    label: "早期割引",
+    color: "#10b981",
+  },
+  regular: {
+    label: "通常価格",
+    color: "#f59e0b",
+  },
+} satisfies ChartConfig;
 
 const attendeeChartConfig = {
   attendees: {
@@ -70,17 +54,6 @@ const attendeeChartConfig = {
   },
 } satisfies ChartConfig;
 
-const salesChartConfig = {
-  early: {
-    label: "早期割引",
-    color: "#10b981",
-  },
-  regular: {
-    label: "通常価格",
-    color: "#f59e0b",
-  },
-} satisfies ChartConfig;
-
 const talkCategoryChartConfig = {
   laravel: {
     label: "Laravel/PHP",
@@ -110,6 +83,33 @@ const websiteTrafficChartConfig = {
     color: "rgb(139, 92, 246)",
   },
 } satisfies ChartConfig;
+
+interface DashboardProps {
+  totalRevenue: number;
+  totalAttendees: number;
+  totalTalkProposals: number;
+  totalSponsors: number;
+  ticketSales: {
+    month: string;
+    sales: number;
+    early: number;
+    regular: number;
+  }[];
+  attendeesByCountry: {
+    country: string;
+    attendees: number;
+    fill: string;
+  }[];
+  talkCategories: {
+    category: string;
+    submissions: number;
+    fill: string;
+  }[];
+  websiteTraffic: {
+    time: string;
+    visitors: number;
+  }[];
+}
 
 const Dashboard = ({
   totalRevenue,
@@ -273,7 +273,7 @@ const Dashboard = ({
                   <ChartContainer config={salesChartConfig} className="h-[300px] w-full">
                     <BarChart data={ticketSales}>
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" tickLine={false} axisLine={false} className="text-xs" />
+                      <XAxis dataKey="month" tickLine={false} axisLine={false} className="text-xs" tickFormatter={(value) => `${value}月`} />
                       <YAxis tickLine={false} axisLine={false} className="text-xs" tickFormatter={(value) => `${value}枚`} />
                       <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
                       <ChartLegend content={<ChartLegendContent />} />
