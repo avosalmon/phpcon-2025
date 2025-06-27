@@ -14,6 +14,7 @@ export const slides = [
   "talk-proposals/create",
   "talk-proposals",
   "dashboard",
+  "modular-monolith",
   "closing",
 ];
 

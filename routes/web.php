@@ -22,6 +22,7 @@ Route::prefix('slides')->group(function () {
     Route::get('inertia-tagline', fn () => Inertia::render('slide/inertia-tagline'));
     Route::get('speakers', [SpeakerController::class, 'index']);
     Route::get('dashboard', DashboardController::class);
+    Route::get('modular-monolith', fn () => Inertia::render('slide/modular-monolith'));
     Route::get('closing', fn () => Inertia::render('slide/closing'));
 
     Route::prefix('talk-proposals')->group(function () {
