@@ -39,6 +39,32 @@ const Installation = () => {
       </motion.div>
 
       <div className="absolute -inset-8 -z-10 rounded-[3rem] bg-gradient-to-r from-green-500/20 via-blue-500/20 to-purple-500/20 blur-2xl"></div>
+
+      {/* Floating decorative elements */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute h-3 w-3 rounded-full bg-gradient-to-r from-green-400/40 to-blue-400/40"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -40, 0],
+              x: [0, Math.random() * 30 - 15, 0],
+              opacity: [0.4, 1, 0.4],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 5 + Math.random() * 3,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
     </motion.div>
   );
 };
