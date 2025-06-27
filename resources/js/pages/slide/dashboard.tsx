@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { Skeleton } from "@/components/ui/skeleton";
 import { SlideLayout } from "@/layouts/slide-layout";
 import { cn } from "@/lib/utils";
 import { Deferred, router, usePoll } from "@inertiajs/react";
@@ -121,6 +122,7 @@ const Dashboard = ({
   trafficData,
 }: DashboardProps) => {
   const [isPolling, setIsPolling] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { start, stop } = usePoll(3000, {}, { autoStart: false });
 
@@ -251,13 +253,23 @@ const Dashboard = ({
                   <h3 className="text-xl font-semibold text-gray-900">チケット売上枚数</h3>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Button onClick={() => router.reload({ only: ["ticketSalesData"] })} variant="outline" size="icon">
-                    <RefreshCw className="h-4 w-4" />
+                  <Button
+                    onClick={() =>
+                      router.reload({
+                        only: ["ticketSalesData"],
+                        onStart: () => setIsLoading(true),
+                        onFinish: () => setIsLoading(false),
+                      })
+                    }
+                    variant="outline"
+                    size="icon"
+                  >
+                    <RefreshCw className={cn("h-4 w-4", isLoading && "animate-spin")} />
                   </Button>
                 </div>
               </div>
               <div className="w-full">
-                <Deferred data="ticketSalesData" fallback={<div>Loading...</div>}>
+                <Deferred data="ticketSalesData" fallback={<Skeleton className="h-[300px] w-full" />}>
                   <ChartContainer config={salesChartConfig} className="h-[300px] w-full">
                     <BarChart data={ticketSalesData}>
                       <CartesianGrid strokeDasharray="3 3" />
@@ -283,7 +295,6 @@ const Dashboard = ({
                 <Globe className="h-5 w-5 text-blue-600" />
                 <h3 className="text-xl font-semibold text-gray-900">国別参加者数</h3>
               </div>
-              <button className="text-sm font-medium text-purple-600 transition-colors hover:text-purple-700">詳細表示</button>
             </div>
 
             <div className="w-full">
