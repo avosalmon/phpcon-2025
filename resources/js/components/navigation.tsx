@@ -20,7 +20,7 @@ export const Navigation: React.FC = () => {
 
       {nextSlide && (
         <Link
-          prefetch="mount"
+          prefetch
           href={`/slides/${nextSlide}`}
           className="rounded-full bg-white p-3 text-gray-700 shadow-lg transition-all duration-200 hover:scale-110 hover:bg-gray-100"
         >
