@@ -29,6 +29,7 @@ class StoreTalkProposalRequest extends FormRequest
             'email' => ['required', 'email', 'max:255'],
             'talk_title' => ['required', 'string', 'min:10', 'max:255'],
             'talk_description' => ['required', 'string', 'min:50', 'max:1000'],
+            'category' => ['nullable', 'string', 'max:15'],
         ];
     }
 }
