@@ -18,10 +18,10 @@ class DashboardController extends Controller
 {
     public function __invoke(): Response
     {
-        $totalRevenue = Ticket::sum('price');
-        $totalAttendees = Attendee::count();
-        $totalTalkProposals = TalkProposal::count();
-        $totalSponsors = Sponsor::count();
+        $totalRevenue = fn () => Ticket::sum('price');
+        $totalAttendees = fn () => Attendee::count();
+        $totalTalkProposals = fn () => TalkProposal::count();
+        $totalSponsors = fn () => Sponsor::count();
 
         $ticketSalesData = Inertia::defer(function () {
             [$monthFormat, $yearMonthFormat] = match (DB::getDriverName()) {
@@ -41,7 +41,7 @@ class DashboardController extends Controller
                 ->get();
         });
 
-        $attendeesByCountry = Attendee::selectRaw(<<<'SQL'
+        $attendeesByCountry = fn () => Attendee::selectRaw(<<<'SQL'
                 LOWER(country_code) as country, COUNT(*) as attendees
             SQL)
             ->groupBy('country')
@@ -53,7 +53,7 @@ class DashboardController extends Controller
                 'fill' => "var(--color-{$item->country})",
             ]);
 
-        $talkCategoriesData = TalkProposal::selectRaw(<<<'SQL'
+        $talkCategoriesData = fn () => TalkProposal::selectRaw(<<<'SQL'
                 category, COUNT(*) as submissions
             SQL)
             ->groupBy('category')
@@ -64,7 +64,7 @@ class DashboardController extends Controller
                 'fill' => "var(--color-{$item->category})",
             ]);
 
-        $trafficData = WebsiteTraffic::where('date', Carbon::today())
+        $trafficData = fn () => WebsiteTraffic::where('date', Carbon::today())
             ->orderBy('hour')
             ->get()
             ->map(fn ($item) => [
