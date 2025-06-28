@@ -27,7 +27,6 @@ class Ticket extends Model
      * @var array
      */
     protected $casts = [
-        'price' => 'decimal:2',
         'purchased_at' => 'datetime',
     ];
 

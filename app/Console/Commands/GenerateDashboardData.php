@@ -81,7 +81,7 @@ class GenerateDashboardData extends Command
             ]);
 
             $ticketType = $this->ticketTypes[array_rand($this->ticketTypes)];
-            $price = $ticketType === 'early_bird' ? fake()->randomFloat(2, 15000, 25000) : fake()->randomFloat(2, 25000, 35000);
+            $price = $ticketType === 'early_bird' ? fake()->numberBetween(15000, 25000) : fake()->numberBetween(25000, 35000);
 
             Ticket::create([
                 'attendee_id' => $attendee->id,

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('attendee_id')->constrained()->onDelete('cascade');
             $table->string('type');
-            $table->decimal('price', 10, 2);
+            $table->unsignedInteger('price');
             $table->timestamp('purchased_at');
             $table->timestamps();
 
