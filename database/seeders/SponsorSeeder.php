@@ -26,7 +26,6 @@ class SponsorSeeder extends Seeder
             ['name' => 'Pusher', 'tier' => 'bronze'],
             ['name' => 'Mailgun', 'tier' => 'bronze'],
             ['name' => 'Algolia', 'tier' => 'bronze'],
-            ['name' => 'Vonage', 'tier' => 'bronze'],
         ]);
     }
 }
