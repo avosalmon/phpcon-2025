@@ -1,6 +1,7 @@
 import { Nightwatch } from "@/components/icons/nightwatch";
 import { X } from "@/components/icons/x";
-import { ExternalLink, Github } from "lucide-react";
+import { Link } from "@inertiajs/react";
+import { ExternalLink, Github, Play } from "lucide-react";
 import { motion } from "motion/react";
 
 const Reference = () => {
@@ -12,16 +13,16 @@ const Reference = () => {
       description: "@avosalmon",
     },
     {
-      title: "GitHub Repository",
-      url: "https://github.com/avosalmon/phpcon-2025",
-      icon: Github,
-      description: "スライドのソースコード",
-    },
-    {
       title: "PHPxTKY",
       url: "https://x.com/phpxtky",
       icon: X,
       description: "@phpxtky",
+    },
+    {
+      title: "GitHub Repository",
+      url: "https://github.com/avosalmon/phpcon-2025",
+      icon: Github,
+      description: "スライドのソースコード",
     },
     {
       title: "Laravel Nightwatch",
@@ -67,7 +68,7 @@ const Reference = () => {
 
       <div className="relative z-10 w-full max-w-7xl text-center">
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="space-y-16">
-          <h1 className="mb-8 text-4xl leading-12 font-bold text-white md:text-6xl">
+          <h1 className="text-4xl leading-12 font-bold text-white md:text-6xl">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }} className="mb-6">
               Modern full-stack web application
             </motion.div>
@@ -80,15 +81,6 @@ const Reference = () => {
               with Laravel and Inertia.js
             </motion.div>
           </h1>
-
-          <motion.p
-            className="mb-8 text-xl leading-relaxed text-purple-100 md:text-2xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
-          >
-            Laravel + Inertia.jsで始めるモダンフルスタックWebアプリケーション
-          </motion.p>
 
           <motion.div
             className="flex items-center justify-center space-x-6"
@@ -142,6 +134,43 @@ const Reference = () => {
                 </div>
               </motion.a>
             ))}
+          </motion.div>
+
+          <motion.div
+            className="mx-auto mt-12 max-w-md"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+          >
+            <Link
+              prefetch="mount"
+              href="/slides/title"
+              className="group relative block overflow-hidden rounded-2xl bg-gradient-to-r from-purple-600 via-purple-700 to-blue-700 p-8 shadow-2xl transition-all duration-300 hover:shadow-purple-500/25"
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              />
+              <div className="relative z-10 flex items-center justify-center space-x-4">
+                <motion.div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                  <Play className="h-8 w-8 text-white" fill="currentColor" />
+                </motion.div>
+                <h3 className="text-2xl font-bold text-white">スライドへ</h3>
+              </div>
+              <motion.div
+                className="absolute -right-2 -bottom-2 h-20 w-20 rounded-full bg-white/10"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 0.8, 0.5],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </Link>
           </motion.div>
         </motion.div>
       </div>
