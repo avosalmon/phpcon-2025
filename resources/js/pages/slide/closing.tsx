@@ -3,34 +3,6 @@ import { SlideLayout } from "@/layouts/slide-layout";
 import { motion } from "motion/react";
 import { ReactNode } from "react";
 
-const DummyQRCode: React.FC<{ className?: string }> = ({ className = "w-48 h-48" }) => (
-  <div className={`${className} rounded-2xl border-4 border-white/20 bg-white p-4 shadow-2xl`}>
-    <div className="relative h-full w-full overflow-hidden rounded-lg bg-black">
-      <div className="absolute inset-0 grid grid-cols-8 grid-rows-8 gap-0">
-        {[...Array(64)].map((_, i) => (
-          <div key={i} className={`${Math.random() > 0.5 ? "bg-black" : "bg-white"}`} />
-        ))}
-      </div>
-
-      <div className="absolute top-2 left-2 h-6 w-6 border-2 border-white bg-black">
-        <div className="m-1 h-2 w-2 bg-white">
-          <div className="m-0.5 h-1 w-1 bg-black"></div>
-        </div>
-      </div>
-      <div className="absolute top-2 right-2 h-6 w-6 border-2 border-white bg-black">
-        <div className="m-1 h-2 w-2 bg-white">
-          <div className="m-0.5 h-1 w-1 bg-black"></div>
-        </div>
-      </div>
-      <div className="absolute bottom-2 left-2 h-6 w-6 border-2 border-white bg-black">
-        <div className="m-1 h-2 w-2 bg-white">
-          <div className="m-0.5 h-1 w-1 bg-black"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
 const Closing = () => {
   return (
     <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }}>
@@ -70,7 +42,7 @@ const Closing = () => {
             transition={{ delay: 0.5, duration: 0.8, type: "spring", stiffness: 100 }}
             whileHover={{ scale: 1.05 }}
           >
-            <DummyQRCode className="h-80 w-80" />
+            <img src="/images/QR.png" alt="QR Code" className="h-80 w-80 rounded-2xl border-4 border-white/20 bg-white shadow-2xl" />
           </motion.div>
         </motion.div>
 
