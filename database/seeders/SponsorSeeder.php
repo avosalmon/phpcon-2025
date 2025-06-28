@@ -12,6 +12,8 @@ class SponsorSeeder extends Seeder
      */
     public function run(): void
     {
+        Sponsor::truncate();
+
         Sponsor::insert([
             ['name' => 'Laravel', 'tier' => 'platinum'],
             ['name' => 'AWS', 'tier' => 'gold'],

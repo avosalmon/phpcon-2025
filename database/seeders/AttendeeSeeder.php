@@ -13,6 +13,8 @@ class AttendeeSeeder extends Seeder
      */
     public function run(): void
     {
+        Attendee::truncate();
+
         $attendees = [
             // Japan
             ['name' => '田中太郎', 'email' => 'tanaka@example.com', 'country_code' => 'JP'],

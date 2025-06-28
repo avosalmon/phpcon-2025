@@ -15,6 +15,8 @@ class TicketSeeder extends Seeder
      */
     public function run(): void
     {
+        Ticket::truncate();
+
         $attendees = Attendee::all();
 
         foreach ($attendees as $attendee) {

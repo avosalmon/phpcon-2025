@@ -13,6 +13,8 @@ class WebsiteTrafficSeeder extends Seeder
      */
     public function run(): void
     {
+        WebsiteTraffic::truncate();
+
         $today = Carbon::today();
 
         // Create traffic data for each hour of today
