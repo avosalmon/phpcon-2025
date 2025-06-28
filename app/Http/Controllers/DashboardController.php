@@ -24,6 +24,8 @@ class DashboardController extends Controller
         $totalSponsors = fn () => Sponsor::count();
 
         $ticketSales = Inertia::defer(function () {
+            sleep(3);
+
             [$monthFormat, $yearMonthFormat] = match (DB::getDriverName()) {
                 'sqlite' => ['CAST(strftime("%m", purchased_at) AS INTEGER)', 'strftime("%Y-%m", purchased_at)'],
                 'pgsql' => ["TO_CHAR(purchased_at, 'FMMM')", "TO_CHAR(purchased_at, 'YYYY-MM')"],
@@ -39,19 +41,23 @@ class DashboardController extends Controller
                 ->groupBy(DB::raw($yearMonthFormat), DB::raw($monthFormat))
                 ->orderBy(DB::raw($yearMonthFormat))
                 ->get();
-        });
+        }, 'chart');
 
-        $attendeesByCountry = fn () => Attendee::selectRaw(<<<'SQL'
+        $attendeesByCountry = Inertia::defer(function () {
+            sleep(2);
+
+            return Attendee::selectRaw(<<<'SQL'
                 LOWER(country_code) as country, COUNT(*) as attendees
             SQL)
-            ->groupBy('country')
-            ->orderByDesc('attendees')
-            ->get()
-            ->map(fn ($item) => [
-                'country' => $item->country,
-                'attendees' => $item->attendees,
-                'fill' => "var(--color-{$item->country})",
-            ]);
+                ->groupBy('country')
+                ->orderByDesc('attendees')
+                ->get()
+                ->map(fn ($item) => [
+                    'country' => $item->country,
+                    'attendees' => $item->attendees,
+                    'fill' => "var(--color-{$item->country})",
+                ]);
+        }, 'chart');
 
         $talkCategories = fn () => TalkProposal::selectRaw(<<<'SQL'
                 category, COUNT(*) as submissions

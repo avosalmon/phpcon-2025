@@ -297,36 +297,40 @@ const Dashboard = ({
               </div>
             </div>
 
-            <div className="w-full">
-              <ChartContainer config={attendeeChartConfig} className="h-[240px] w-full">
-                <BarChart accessibilityLayer data={attendeesByCountry} layout="vertical">
-                  <YAxis
-                    dataKey="country"
-                    type="category"
-                    tickLine={false}
-                    tickMargin={10}
-                    axisLine={false}
-                    tickFormatter={(value) => attendeeChartConfig[value as keyof typeof attendeeChartConfig]?.label}
-                  />
-                  <XAxis dataKey="attendees" type="number" hide />
-                  <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                  <Bar dataKey="attendees" radius={8} />
-                </BarChart>
-              </ChartContainer>
-            </div>
+            <Deferred data="attendeesByCountry" fallback={<Skeleton className="h-[240px] w-full" />}>
+              <div>
+                <div className="w-full">
+                  <ChartContainer config={attendeeChartConfig} className="h-[240px] w-full">
+                    <BarChart accessibilityLayer data={attendeesByCountry} layout="vertical">
+                      <YAxis
+                        dataKey="country"
+                        type="category"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) => attendeeChartConfig[value as keyof typeof attendeeChartConfig]?.label}
+                      />
+                      <XAxis dataKey="attendees" type="number" hide />
+                      <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                      <Bar dataKey="attendees" radius={8} />
+                    </BarChart>
+                  </ChartContainer>
+                </div>
 
-            <motion.div
-              className="mt-4 border-t border-gray-200 pt-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.0, duration: 0.6 }}
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-gray-900">総参加者数</span>
-                <span className="text-xl font-bold text-gray-900">{totalAttendees}名</span>
+                <motion.div
+                  className="mt-4 border-t border-gray-200 pt-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.0, duration: 0.6 }}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-gray-900">総参加者数</span>
+                    <span className="text-xl font-bold text-gray-900">{totalAttendees}名</span>
+                  </div>
+                  <p className="mt-1 text-xs text-gray-500">{attendeesByCountry?.length}カ国からの参加</p>
+                </motion.div>
               </div>
-              <p className="mt-1 text-xs text-gray-500">{attendeesByCountry.length}カ国からの参加</p>
-            </motion.div>
+            </Deferred>
           </div>
         </motion.div>
       </div>
