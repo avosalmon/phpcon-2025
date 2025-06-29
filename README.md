@@ -7,8 +7,8 @@ The presentation is available at: https://phpcon-2025.laravel.cloud
 ## Running the presentation locally
 
 ```sh
-cp .env.example .env
 composer install
+php artisan key:generate
 php artisan migrate:fresh --seed
 npm install
 composer dev
