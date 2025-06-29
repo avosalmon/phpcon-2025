@@ -13,3 +13,5 @@ php artisan migrate:fresh --seed
 npm install
 composer dev
 ```
+
+You can access the app at http://127.0.0.1:8000.
