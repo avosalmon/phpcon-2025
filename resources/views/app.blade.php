@@ -24,6 +24,15 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
+        <meta property="og:title" content="Modern full-stack web application with Laravel and Inertia.js - PHP Conference 2025" />
+        <meta property="og:description" content="Inertia.js allows you to build modern full-stack web applications without the complexity of building a single-page application." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ config('app.url') }}" />
+        <meta property="og:image" content="{{ url('/images/ogp.png') }}" />
+        <meta property="og:image:height" content="630">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:type" content="image/png">
+
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
