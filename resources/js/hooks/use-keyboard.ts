@@ -1,8 +1,10 @@
-import { getNextSlide, getPreviousSlide } from "@/lib/slides";
+import { useSlides } from "@/hooks/use-slides";
 import { router } from "@inertiajs/react";
 import { useEffect } from "react";
 
 export const useKeyboard = () => {
+  const { previousSlide, nextSlide } = useSlides();
+
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       const activeElement = document.activeElement;
@@ -17,9 +19,6 @@ export const useKeyboard = () => {
       if (isFormField) {
         return;
       }
-
-      const previousSlide = getPreviousSlide();
-      const nextSlide = getNextSlide();
 
       switch (event.key) {
         case "ArrowRight":
@@ -40,5 +39,5 @@ export const useKeyboard = () => {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, []);
+  }, [previousSlide, nextSlide]);
 };

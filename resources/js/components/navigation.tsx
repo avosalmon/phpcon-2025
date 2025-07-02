@@ -1,11 +1,10 @@
-import { getNextSlide, getPreviousSlide } from "@/lib/slides";
+import { useSlides } from "@/hooks/use-slides";
 import { Link, router } from "@inertiajs/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useEffect } from "react";
 
 export const Navigation: React.FC = () => {
-  const previousSlide = getPreviousSlide();
-  const nextSlide = getNextSlide();
+  const { previousSlide, nextSlide } = useSlides();
 
   useEffect(() => {
     if (previousSlide) {
