@@ -33,6 +33,15 @@
         <meta property="og:image:width" content="1200">
         <meta property="og:image:type" content="image/png">
 
+        <meta name="twitter:site" content="@avosalmon">
+        <meta name="twitter:creator" content="@avosalmon">
+        <meta name="twitter:title" content="Modern full-stack web application with Laravel and Inertia.js - PHP Conference 2025">
+        <meta name="twitter:description" content="Inertia.js allows you to build modern full-stack web applications without the complexity of building a single-page application.">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="{{ url('/images/ogp.png') }}">
+        <meta name="twitter:image:height" content="630">
+        <meta name="twitter:image:width" content="1200">
+
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
