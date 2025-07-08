@@ -5,9 +5,19 @@ declare(strict_types=1);
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\TalkProposalController;
+use App\Models\Speaker;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+Route::get('/cache', function () {
+    $speakers = Cache::flexible(key: 'speakers', ttl: [60, 5], callback: function () {
+        return Speaker::count();
+    });
+
+    return $speakers;
+});
 
 Route::get('/', fn () => redirect('/slides/intro'))->name('home');
 
