@@ -7,16 +7,18 @@ use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\TalkProposalController;
 use App\Models\Speaker;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/cache', function () {
-    $speakers = Cache::flexible(key: 'speakers', ttl: [60, 5], callback: function () {
-        return Speaker::count();
-    });
+Route::get('/test', function () {
+    Speaker::count();
 
-    return $speakers;
+    defer(function () {
+        Log::info('Sleep for 3 seconds');
+        sleep(3);
+        Log::info('Done');
+    });
 });
 
 Route::get('/', fn () => redirect('/slides/intro'))->name('home');
