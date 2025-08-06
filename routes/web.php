@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\TalkProposalController;
+use App\Http\Middleware\TerminateMiddleware;
 use App\Models\Speaker;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Log;
@@ -20,6 +21,10 @@ Route::get('/test', function () {
         Log::info('Done');
     });
 });
+
+Route::get('middleware', function () {
+    return 'Hello';
+})->middleware(TerminateMiddleware::class);
 
 Route::get('/', fn () => redirect('/slides/intro'))->name('home');
 
